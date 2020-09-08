@@ -1,0 +1,14 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/css/vendor/animsition.min.css": "/css/vendor/animsition.min.css",
+    "/css/vendor/bootstrap-progressbar-3.3.4.min.css": "/css/vendor/bootstrap-progressbar-3.3.4.min.css",
+    "/css/vendor/animate.css": "/css/vendor/animate.css",
+    "/css/vendor/hamburgers.min.css": "/css/vendor/hamburgers.min.css",
+    "/css/vendor/slick.css": "/css/vendor/slick.css",
+    "/css/vendor/select2.min.css": "/css/vendor/select2.min.css",
+    "/css/vendor/perfect-scrollbar.css": "/css/vendor/perfect-scrollbar.css",
+    "/css/theme.css": "/css/theme.css",
+    "/fonts/font-awesome-4.7": "/fonts/font-awesome-4.7",
+    "/js/main.js": "/js/main.js"
+}
