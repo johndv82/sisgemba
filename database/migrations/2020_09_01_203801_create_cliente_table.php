@@ -19,6 +19,10 @@ class CreateClienteTable extends Migration
             $table->string("nombrecomercial", 250);
             $table->string("ruc", 11);
             $table->jsonb("contacto");
+            $table->string("domicilio", 500);
+            $table->integer("distrito");
+            $table->integer("provincia");
+            $table->integer("departamento");
             $table->tinyInteger("estado");
             $table->timestamps();
         });

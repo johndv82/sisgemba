@@ -8,3 +8,7 @@ require('../vendor/counter-up/jquery.counterup.min')
 require('../vendor/circle-progress/circle-progress.min')
 require('../vendor/select2/select2.min')
 
+require('datatables.net');
+require('datatables.net-dt');
+
+require('jquery-validation')

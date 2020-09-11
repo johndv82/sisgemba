@@ -294,7 +294,7 @@ section {
 @media (max-width: 991px) {
     .page-container {
         position: relative;
-        top: 88px;
+        top: 53px;
         padding-left: 0;
     }
 }
@@ -1734,7 +1734,7 @@ section {
     display: none;
     position: absolute;
     width: 100%;
-    top: 88px;
+    top: 53px;
     z-index: 20;
 }
 
