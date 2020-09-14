@@ -9,11 +9,11 @@
         <nav class="navbar-sidebar">
             <ul class="list-unstyled navbar__list">
                 <li>
-                    <a href="/clientes">
+                    <a href="{{url('clientes')}}">
                         <i class="fas fa-users"></i>Clientes</a>
                 </li>
                 <li>
-                    <a href="/trabajadores">
+                    <a href="{{url('trabajadores')}}">
                         <i class="fas fa-user-circle"></i>Trabajadores</a>
                 </li>
                 <li>

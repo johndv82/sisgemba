@@ -143,6 +143,43 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label for="domicilio_residencia" class=" form-control-label">Domicilio de Residencia</label>
+                        <input type="text" id="domicilio_residencia" name="domicilio_residencia" class="form-control">
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="departamento_residencia" class=" form-control-label">Departamento Residencia</label>
+                                <select name="departamento_residencia" id="departamento_residencia" class="form-control combo_origen"
+                                        data-dependent="provincia_residencia">
+                                    <option value="0">Seleccione Departamento</option>
+                                    @foreach($departamentos as $item)
+                                        <option value="{{$item->id}}">{{$item->nombre}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="provincia_residencia" class=" form-control-label">Provincia Residencia</label>
+                                <select name="provincia_residencia" id="provincia_residencia" class="form-control combo_origen"
+                                        data-dependent="distrito_residencia">
+                                    <option value="0">Seleccione Provincia</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="distrito_residencia" class=" form-control-label">Distrito Residencia</label>
+                                <select name="distrito_residencia" id="distrito_residencia" class="form-control">
+                                    <option value="0">Seleccione Distrito</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-footer">
                     <button type="submit" class="btn btn-success btn-sm">
