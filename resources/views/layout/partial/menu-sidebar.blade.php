@@ -13,7 +13,7 @@
                         <i class="fas fa-users"></i>Clientes</a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/trabajadores">
                         <i class="fas fa-user-circle"></i>Trabajadores</a>
                 </li>
                 <li>

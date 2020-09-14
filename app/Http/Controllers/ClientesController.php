@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Cliente;
 use App\Departamento;
+use App\Distrito;
+use App\Provincia;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -13,7 +15,7 @@ class ClientesController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Cliente::get();
+            $data = Cliente::where('estado','1')->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('viewContacto', function($row){
@@ -27,12 +29,37 @@ class ClientesController extends Controller
                 ->rawColumns(['viewContacto', 'action'])
                 ->make(true);
         }
-
         return view('cliente.listado');
     }
 
     public function edit($id){
-        return $id;
+        $cliente = Cliente::find($id);
+        $departamentos = Departamento::get();
+        $provincias = Provincia::get()->where('departamento_id',$cliente->departamento);
+        $distritos = Distrito::get()->where('provincia_id',$cliente->provincia);
+        return view("cliente.actualizacion", compact("cliente", "departamentos", "provincias", "distritos"));
+    }
+
+    public function update(Request $request, $id){
+        $cliente = Cliente::find($id);
+        $cliente->razonsocial = $request->get('razon_social');
+        $cliente->nombrecomercial = $request->get('nombre_comercial');
+        $cliente->ruc = $request->get('ruc');
+        $contacto = json_encode(array(
+            'nombres' => $request->get('nombres_contacto'),
+            'apellidos' => $request->get('apellidos_contacto'),
+            'movil' => $request->get('movil_contacto'),
+            'email' => $request->get('email_contacto')
+        ));
+        $cliente->contacto = $contacto;
+        $cliente->domicilio = $request->get('domicilio');
+        $cliente->departamento = $request->get('departamento');
+        $cliente->provincia = $request->get('provincia');
+        $cliente->distrito = $request->get('distrito');
+        $cliente->estado = 1;
+
+        $cliente->save();
+        return redirect('/clientes')->with('success', 'Cliente Actualizado!!');
     }
 
     public function add(){
@@ -59,7 +86,7 @@ class ClientesController extends Controller
         $cliente->estado = 1;
 
         $cliente->save();
-        return redirect('/clientes')->with('success', 'Registro Guardado!');
+        return redirect('/clientes')->with('success', 'Cliente Guardado!!');
     }
 
     public function combodepend(Request $request){
@@ -74,5 +101,12 @@ class ClientesController extends Controller
             $output .= '<option value="'.$row->id.'">'.$row->nombre.'</option>';
         }
         return $output;
+    }
+
+    public function delete($id){
+        $cliente = Cliente::find($id);
+        $cliente->estado = 0;
+        $cliente->save();
+        return redirect('/clientes')->with('success', 'Cliente Eliminado!!');
     }
 }

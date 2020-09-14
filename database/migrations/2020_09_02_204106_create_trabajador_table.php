@@ -23,6 +23,16 @@ class CreateTrabajadorTable extends Migration
             $table->string("paisorigen", 250);
             $table->string("ciudadorigen", 250);
             $table->date("fechanacimiento");
+            /**Direcciones*/
+            $table->string('domicilioorigen', 250);
+            $table->integer("distritoorigen");
+            $table->integer("provinciaorigen");
+            $table->integer("departamentoorigen");
+            $table->string('domicilioresidencia', 250);
+            $table->integer("distritoresidencia");
+            $table->integer("provinciaresidencia");
+            $table->integer("departamentoresidencia");
+            /***/
             $table->foreignId('estadocivil_id')->constrained('estado_civil');
             $table->string("email", 250);
             $table->string("numerofijo", 50);

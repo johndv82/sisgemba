@@ -31,6 +31,9 @@
     <!-- Estilo Datatables Jquery -->
     <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+    <!-- Estilo de Datepicker -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+
 </head>
 <body class="animsition">
 <div class="page-wrapper">
@@ -49,6 +52,9 @@
 <!-- Bootstrap js, Popper and Jquery Asset -->
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
+
+<!-- Script para Datepicker -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
 @yield('scripts')
 </body>

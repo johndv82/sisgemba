@@ -9,5 +9,7 @@
     </div>
 </div>
 
+@yield('modal')
+
 <!-- END MAIN CONTENT-->
 

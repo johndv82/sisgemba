@@ -1,7 +1,7 @@
 @extends('layout.dash')
 
 @section('titulo')
-    Listado de Clientes
+    Listado de Trabajadores
 @endsection
 
 @section('contenido')
@@ -19,7 +19,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <strong class="card-title">Listado de Clientes</strong>
+                <strong class="card-title">Listado de Trabajadores</strong>
             </div>
             <div class="card-body">
                 <div class="col-md-3">
@@ -27,17 +27,17 @@
                 </div>
                 <div class="col-lg-12">
                     <div class="table-responsive table--no-card m-b-30">
-                        <table class="table table-borderless table-data3" id="tblClientes" style="width: 100%;">
+                        <table class="table table-borderless table-data3" id="tblTrabajadores" style="width: 100%;">
                             <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Razon Social</th>
-                                <th>Nombre Comercial</th>
-                                <th>Ruc</th>
-                                <th>Domicilio</th>
-                                <th>Creado</th>
-                                <th>JSON Contacto</th>
-                                <th>Contacto</th>
+                                <th>Apellido Pat.</th>
+                                <th>Apellido Mat.</th>
+                                <th>Nombres</th>
+                                <th>Tipo Doc.</th>
+                                <th>Número de Doc.</th>
+                                <th>Email</th>
+                                <th>Núm. Celular</th>
                                 <th>Acción</th>
                             </tr>
                             </thead>
@@ -51,28 +51,23 @@
     </div>
 @endsection
 
-
 @section('scripts')
     <script type="text/javascript">
         $(function () {
-            var table = $('#tblClientes').DataTable({
+            var table = $('#tblTrabajadores').DataTable({
                 processing: true,
                 serverSide: true,
                 paging: false,
-                ajax: "{{ route('listadoClientes') }}",
+                ajax: "{{ route('listadoTrabajadores') }}",
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                    {data: 'razonsocial', name: 'razonsocial'},
-                    {data: 'nombrecomercial', name: 'nombrecomercial'},
-                    {data: 'ruc', name: 'ruc'},
-                    {data: 'domicilio', name: 'domicilio'},
-                    {data: 'created_at', name: 'created_at'},
-                    {data: 'contacto', name: 'contacto'},
-                    {
-                        data: 'viewContacto',
-                        name: 'viewContacto',
-                        orderable: true,
-                        searchable: true},
+                    {data: 'apellidopaterno', name: 'apellidopaterno'},
+                    {data: 'apellidomaterno', name: 'apellidomaterno'},
+                    {data: 'nombres', name: 'nombres'},
+                    {data: 'tiposdocumentos', name: 'tiposdocumentos'},
+                    {data: 'numerodocumento', name: 'numerodocumento'},
+                    {data: 'email', name: 'email'},
+                    {data: 'numerocelular', name: 'numerocelular'},
                     {
                         data: 'action',
                         name: 'action',
@@ -86,12 +81,12 @@
                     "emptyTable": "No hay ningún registro",
                 }
             });
-            table.columns([0, 6]).visible(false);
-            $("#tblClientes_filter input[type=\"search\"]").addClass("form-control");
+            table.columns([0]).visible(false);
+            $("#tblTrabajadores_filter input[type=\"search\"]").addClass("form-control");
         });
 
         $("#btnNuevo").click(function(){
-            window.location.href = "{{ route('addCliente')}}";
+            window.location.href = "{{ route('addTrabajador')}}";
         });
     </script>
 

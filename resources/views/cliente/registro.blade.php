@@ -1,11 +1,10 @@
 @extends('layout.dash')
 
 @section('titulo')
-    Registro de Clientes
+    Registro de Cliente
 @endsection
 
 @section('contenido')
-
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
@@ -19,7 +18,6 @@
                             <div class="form-group">
                                 <label for="razon_social" class=" form-control-label">Razon Social</label>
                                 <input type="text" id="razon_social" name="razon_social" class="form-control">
-                                <span>{{ $errors->first('razon_social') }}</span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -114,7 +112,7 @@
                     <button type="submit" class="btn btn-success btn-sm">
                         <i class="fa fa-dot-circle-o"></i> Guardar
                     </button>
-                    <button type="reset" class="btn btn-secondary btn-sm">
+                    <button type="reset" class="btn btn-secondary btn-sm" onclick="window.location='{{ route("listadoClientes") }}'">
                         <i class="fa fa-ban"></i> Cancelar
                     </button>
                 </div>
