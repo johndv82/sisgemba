@@ -64,7 +64,7 @@
                     {data: 'apellidopaterno', name: 'apellidopaterno'},
                     {data: 'apellidomaterno', name: 'apellidomaterno'},
                     {data: 'nombres', name: 'nombres'},
-                    {data: 'tiposdocumentos', name: 'tiposdocumentos'},
+                    {data: 'tipodocumento', name: 'tipodocumento'},
                     {data: 'numerodocumento', name: 'numerodocumento'},
                     {data: 'email', name: 'email'},
                     {data: 'numerocelular', name: 'numerocelular'},

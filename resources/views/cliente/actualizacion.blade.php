@@ -19,7 +19,6 @@
                             <div class="form-group">
                                 <label for="razon_social" class=" form-control-label">Razon Social</label>
                                 <input type="text" id="razon_social" name="razon_social" class="form-control" value="{{$cliente->razonsocial}}">
-                                <span>{{ $errors->first('razon_social') }}</span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -185,6 +184,13 @@
             }
         });
 
+        $('#departamento').change(function () {
+            $('#distrito').val('0');
+            $('#distrito')
+                .empty()
+                .append('<option value="0">Seleccione Distrito</option>');
+        });
+
         //Validate Form
         if ($("#formCliente").length > 0) {
             $.validator.addMethod("valueNotEquals", function(value, element, arg){
@@ -202,6 +208,7 @@
                         maxlength: 250
                     },
                     ruc: {
+                        number:true,
                         required: true,
                         maxlength: 11,
                         minlength: 11
@@ -238,6 +245,7 @@
                     },
                     ruc: {
                         required: "Por favor, rellene este campo.",
+                        number: "RUC solo puede contener números",
                         maxlength: "El RUC no puede contener mas de 11 digitos.",
                         minlength: "El RUC no puede contener menos de 11 digitos.",
                     },

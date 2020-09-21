@@ -128,10 +128,10 @@
         });
         $('.combo').change(function () {
             if ($(this).val() !== '') {
-                var select = $(this).attr("id");
-                var value = $(this).val();
-                var dependent = $(this).data('dependent');
-                var _token = $('input[name="_token"]').val();
+                let select = $(this).attr("id");
+                let value = $(this).val();
+                let dependent = $(this).data('dependent');
+                let _token = $('input[name="_token"]').val();
                 $.ajax({
                     url: "{{ route('cliente.combodepend') }}",
                     method: "POST",
@@ -144,12 +144,10 @@
         });
 
         $('#departamento').change(function () {
-            $('#provincia').val('0');
             $('#distrito').val('0');
-        });
-
-        $('#provincia').change(function () {
-            $('#distrito').val('0');
+            $('#distrito')
+                .empty()
+                .append('<option value="0">Seleccione Distrito</option>');
         });
 
         //Validate Form
@@ -169,6 +167,7 @@
                         maxlength: 250
                     },
                     ruc: {
+                        number:true,
                         required: true,
                         maxlength: 11,
                         minlength: 11
@@ -205,7 +204,8 @@
                     },
                     ruc: {
                         required: "Por favor, rellene este campo.",
-                        maxlength: "El RUC no puede contener mas de 11 digitos.",
+                        number: "RUC solo puede contener números.",
+                        maxlength: "El RUC no puede contener mas de 11 dígitos.",
                         minlength: "El RUC no puede contener menos de 11 digitos.",
                     },
                     domicilio:{

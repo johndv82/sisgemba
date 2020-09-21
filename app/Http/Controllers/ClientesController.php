@@ -86,7 +86,7 @@ class ClientesController extends Controller
         $cliente->estado = 1;
 
         $cliente->save();
-        return redirect('/clientes')->with('success', 'Cliente Guardado!!');
+        return redirect()->route('listadoClientes')->with('success', 'Cliente Guardado!!');
     }
 
     public function combodepend(Request $request){

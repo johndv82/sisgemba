@@ -23,7 +23,7 @@ mix.copy('resources/vendor/css-hamburgers/hamburgers.min.css', 'public/css/vendo
 mix.copy('resources/vendor/slick/slick.css', 'public/css/vendor/slick.css');
 mix.copy('resources/vendor/select2/select2.min.css', 'public/css/vendor/select2.min.css');
 mix.copy('resources/vendor/perfect-scrollbar/perfect-scrollbar.css', 'public/css/vendor/perfect-scrollbar.css');
-
+mix.copy('resources/vendor/bootstrap-datepicker/bootstrap-datepicker.min.css', 'public/css/vendor/bootstrap-datepicker.min.css');
 
 //Estilos de CoolAdmin
 //Theme

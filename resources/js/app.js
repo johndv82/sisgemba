@@ -12,3 +12,5 @@ require('datatables.net');
 require('datatables.net-dt');
 
 require('jquery-validation')
+
+require('../vendor/bootstrap-datepicker/bootstrap-datepicker.min')

@@ -17,11 +17,7 @@
                         <i class="fas fa-user-circle"></i>Trabajadores</a>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="far fa-address-book"></i>Dirección de Trabajadores</a>
-                </li>
-                <li>
-                    <a href="#">
+                    <a href={{url('hijostrabajador')}}>
                         <i class="fas fa-child"></i>Hijos de Trabajador</a>
                 </li>
                 <li>

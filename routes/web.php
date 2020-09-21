@@ -34,3 +34,12 @@ Route::get('/trabajadores/add', [\App\Http\Controllers\TrabajadoresController::c
 Route::post('/trabajadores/save', [\App\Http\Controllers\TrabajadoresController::class, 'save'])->name('saveTrabajador');
 Route::post('/trabajadores/combodepend', [\App\Http\Controllers\TrabajadoresController::class, 'combodepend'])->name('trabajador.combodepend');
 Route::post('/trabajadores/delete/{id}', [\App\Http\Controllers\TrabajadoresController::class, 'delete'])->name('deleteTrabajador');
+
+/** Rutas Hijos Trabajador */
+Route::get('/hijostrabajador',[\App\Http\Controllers\HijosTrabajadorController::class, 'index'])->name('hijosTrabajador.index');
+Route::post('/hijostrabajador/listadoHijos', [\App\Http\Controllers\HijosTrabajadorController::class, 'listadoHijos'])->name('listadoHijosTrabajador');
+Route::get('/hijostrabajador/edit/{id}', [\App\Http\Controllers\HijosTrabajadorController::class, 'edit'])->name('editHijosTrabajador');
+Route::post('/hijostrabajador/update/{id}', [\App\Http\Controllers\HijosTrabajadorController::class, 'update'])->name('updateHijosTrabajador');
+Route::get('/hijostrabajador/add/{id}', [\App\Http\Controllers\HijosTrabajadorController::class, 'add'])->name('addHijosTrabajador');
+Route::post('/hijostrabajador/save', [\App\Http\Controllers\HijosTrabajadorController::class, 'save'])->name('saveHijosTrabajador');
+Route::post('/hijostrabajador/delete/{id}', [\App\Http\Controllers\HijosTrabajadorController::class, 'delete'])->name('deleteHijosTrabajador');
