@@ -23,7 +23,7 @@ class CreateClienteTable extends Migration
             $table->integer("distrito");
             $table->integer("provincia");
             $table->integer("departamento");
-            $table->tinyInteger("estado");
+            $table->boolean("estado");
             $table->timestamps();
         });
     }

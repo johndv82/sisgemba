@@ -29,10 +29,9 @@ class CreateAsignacionTrabajadorTable extends Migration
             $table->foreignId('tipocontrato_id')->constrained('tipo_contrato');
             $table->foreignId('tipotrabajadorasig_id')->constrained('tipo_trabajador_asig');
             $table->jsonb("materialtrabajo");
-            $table->jsonb("programacionvacaciones");
             $table->jsonb("documentacion");
             $table->jsonb("motivocese");
-            $table->tinyInteger("estado");
+            $table->boolean("estado");
             $table->timestamps();
         });
     }

@@ -23,7 +23,7 @@ class CreateHijosTrabajadorTable extends Migration
             $table->string("numerodocumento", 50);
             $table->date("fechanacimiento");
             $table->string("ocupacion", 250);
-            $table->tinyInteger("estado");
+            $table->boolean("estado");
             $table->timestamps();
         });
     }

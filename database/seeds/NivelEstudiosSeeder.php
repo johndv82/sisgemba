@@ -15,17 +15,17 @@ class NivelEstudiosSeeder extends Seeder
             [
                 'nombre' => 'Secundaria Completa',
                 'observaciones' => 'NA',
-                'estado' => 1,
+                'estado' => true,
             ],
             [
                 'nombre' => 'Técnico Superior',
                 'observaciones' => 'NA',
-                'estado' => 1,
+                'estado' => true,
             ],
             [
                 'nombre' => 'Universitario',
                 'observaciones' => 'NA',
-                'estado' => 1,
+                'estado' => true,
             ]
         ]);
     }

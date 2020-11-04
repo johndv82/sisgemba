@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Ciudad;
 use App\Distrito;
 use App\EstadoCivil;
+use App\EstadoTrabajador;
 use App\HijosTrabajador;
 use App\NivelEstudios;
+use App\Pais;
 use App\Provincia;
 use App\TipoDocumento;
 use App\Trabajador;
@@ -19,29 +22,35 @@ class TrabajadoresController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $model = Trabajador::with('tipodocumento')->get();
+            $model = Trabajador::with(['tipodocumento', 'estadotrabajador'])->get();
             return DataTables::of($model)
                 ->addIndexColumn()
                 ->addColumn('tipodocumento', function (Trabajador $trabajador) {
                     return $trabajador->tipodocumento->abreviacion;
+                })
+                ->addColumn('estadotrabajador', function (Trabajador $trabajador) {
+                    //return $trabajador->estadotrabajador->nombre;
+                    $link = '<label data-id="'.$trabajador->id.'" data-idestado="'.$trabajador->estadotrabajador_id.'" class="badge badge-info estadoTrabajador" style="cursor:pointer">'.$trabajador->estadotrabajador->nombre.'</label>';
+                    return $link;
                 })
                 ->addColumn('action', function($row){
                     //$btn = '<a href="/trabajadores/edit/'.$row->id.'" class="btn btn-warning btn-sm">Editar</a>';
                     $btn = '<a href='.url('trabajadores/edit/'.$row->id).' class="btn btn-warning btn-sm">Editar</a>';
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action', 'estadotrabajador'])
                 ->make(true);
         }
         return view('trabajador.listado');
     }
 
     public function add(){
-        $departamentos = Departamento::get();
-        $tipos_documentos = TipoDocumento::get();
-        $estados_civil = EstadoCivil::get();
-        $nivel_estudios = NivelEstudios::get();
-        return view('trabajador.registro', compact('departamentos', 'tipos_documentos', 'estados_civil', 'nivel_estudios'));
+        $departamentos = Departamento::all();
+        $paises = Pais::all();
+        $tipos_documentos = TipoDocumento::all();
+        $estados_civil = EstadoCivil::all();
+        $nivel_estudios = NivelEstudios::all();
+        return view('trabajador.registro', compact('departamentos', 'tipos_documentos', 'estados_civil', 'nivel_estudios', 'paises'));
     }
 
     public function edit($id){
@@ -53,6 +62,10 @@ class TrabajadoresController extends Controller
         $distritos_residencia = Distrito::get()->where('provincia_id',$trabajador->provinciaresidencia);
 
         $departamentos = Departamento::all();
+
+        $paises = Pais::all();
+        $ciudades = Ciudad::get()->where('pais_id', $trabajador->paisorigen);
+
         $tipos_documentos = TipoDocumento::all();
         $estados_civil = EstadoCivil::all();
         $nivel_estudios = NivelEstudios::all();
@@ -61,6 +74,8 @@ class TrabajadoresController extends Controller
         return view("trabajador.actualizacion",
             compact(
                 'trabajador',
+                'paises',
+                'ciudades',
                 'departamentos',
                 'tipos_documentos',
                 'estados_civil',
@@ -143,7 +158,8 @@ class TrabajadoresController extends Controller
         $trabajador->datosconyugue = $datos_conyugue;
         $trabajador->datosemergencia = $datos_emergencia;
         $trabajador->datosestudio = $datos_estudio;
-        $trabajador->estado = 1;
+        $trabajador->estado = true;
+        $trabajador->estadotrabajador_id = 1;
 
         $hijos_agregados = json_decode($request->get('hijos_agregados'), true);
         $hijosModel = [];
@@ -157,7 +173,7 @@ class TrabajadoresController extends Controller
                 $hijo->numerodocumento = $item['numero_documento'];
                 $hijo->fechanacimiento = $item['fecha_nacimiento'];
                 $hijo->ocupacion = $item['ocupacion'];
-                $hijo->estado = 1;
+                $hijo->estado = true;
                 $hijosModel[] = $hijo;
             }
         }
@@ -229,9 +245,26 @@ class TrabajadoresController extends Controller
         $trabajador->datosconyugue = $datos_conyugue;
         $trabajador->datosemergencia = $datos_emergencia;
         $trabajador->datosestudio = $datos_estudio;
-        $trabajador->estado = 1;
 
         $trabajador->save();
         return redirect('/trabajadores')->with('success', 'Trabajador Actualizado!!');
+    }
+
+    public function comboestado(Request $request){
+        $estadosTrabajador = EstadoTrabajador::all();
+
+        $output = '<option value="0">Seleccione Estado</option>';
+        foreach($estadosTrabajador as $row){
+            $selectEstado = ($request->get('idestado') == $row->id) ? "selected" : "";
+            $output .= '<option value="'.$row->id.'" '.$selectEstado.'>'.$row->nombre.'</option>';
+        }
+        return $output;
+    }
+
+    public function cambioestado(Request $request, $id){
+        $trabajador = Trabajador::find($id);
+        $trabajador->estadotrabajador_id = $request->get('estadoSeleccionado');
+        $trabajador->save();
+        return response()->json(['code' => 200]);
     }
 }

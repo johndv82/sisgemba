@@ -16,13 +16,13 @@ class TipoDocumentoSeeder extends Seeder
                 'nombre' => 'Documento Nacional de Identidad',
                 'abreviacion' => 'DNI',
                 'observaciones' => 'Dni',
-                'estado' => 1,
+                'estado' => true,
             ],
             [
                 'nombre' => 'Registro Unico de Contribuyente',
                 'abreviacion' => 'RUC',
                 'observaciones' => 'Para empresas',
-                'estado' => 1,
+                'estado' => true,
             ]
         ]);
     }

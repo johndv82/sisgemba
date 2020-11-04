@@ -15,12 +15,12 @@ class EstadoCivilSeeder extends Seeder
             [
                 'nombre' => 'Soltero',
                 'observaciones' => 'NA',
-                'estado' => 1,
+                'estado' => true,
             ],
             [
                 'nombre' => 'Casado',
                 'observaciones' => 'NA',
-                'estado' => 1,
+                'estado' => true,
             ]
         ]);
     }

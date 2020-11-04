@@ -18,7 +18,7 @@ class CreateTipoDocumentoTable extends Migration
             $table->string("nombre", 250);
             $table->string("abreviacion", 25);
             $table->text("observaciones");
-            $table->tinyInteger("estado");
+            $table->boolean("estado");
             $table->timestamps();
         });
     }

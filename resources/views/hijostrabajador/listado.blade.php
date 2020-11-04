@@ -85,7 +85,7 @@
             $("#btnNuevo").hide();
         });
         function operateFormatter(value, row, index) {
-            return '<a class="edit btn btn-sm btn-danger" href="javascript:void(0)">Editar</a>';
+            return '<a class="edit btn btn-sm btn-warning" href="javascript:void(0)">Editar</a>';
         }
 
         window.operateEvents = {

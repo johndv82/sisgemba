@@ -1,8 +1,8 @@
 <!-- MENU SIDEBAR-->
 <aside class="menu-sidebar d-none d-lg-block">
     <div class="logo">
-        <a href="#">
-            SISGEMBA ICON
+        <a href="{{url('/')}}">
+            <img src="{{asset('img/gemba_logo.jpeg')}}"/>
         </a>
     </div>
     <div class="menu-sidebar__content js-scrollbar1">
@@ -21,12 +21,16 @@
                         <i class="fas fa-child"></i>Hijos de Trabajador</a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{url('asignaciontrabajador')}}">
                         <i class="fas fa-arrow-circle-right"></i>Asignación de Trabajadores</a>
                 </li>
                 <li>
+                    <a href="{{url('vacacion')}}">
+                        <i class="fas fa-calendar-check"></i>Vacaciones</a>
+                </li>
+                <li>
                     <a href="#">
-                        <i class="fas fa-file-excel"></i>Reporte de Trabajadores</a>
+                        <i class="fas fa-file-excel"></i>Reportes</a>
                 </li>
             </ul>
         </nav>

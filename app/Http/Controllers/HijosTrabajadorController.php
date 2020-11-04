@@ -49,7 +49,7 @@ class HijosTrabajadorController extends Controller
         return redirect('/hijostrabajador')->with('success', 'Hijo de Trabajador Actualizado!!');
     }
 
-    public function add(Request $request, $id)
+    public function add($id)
     {
         $idTrabajador = $id;
         $tipos_documentos = TipoDocumento::all();
@@ -66,14 +66,14 @@ class HijosTrabajadorController extends Controller
         $hijo->numerodocumento = $request->get('numero_documento_hijo');
         $hijo->fechanacimiento = $request->get('fecha_nacimiento_hijo');
         $hijo->ocupacion = $request->get('ocupacion_hijo');
-        $hijo->estado = 1;
+        $hijo->estado = true;
 
         $hijo->save();
         return redirect('/hijostrabajador')->with('success', 'Hijo de Trabajador Registrado!!');
     }
     public function delete($id){
         $hijo = HijosTrabajador::find($id);
-        $hijo->estado =0;
+        $hijo->estado = false;
         $hijo->save();
         return redirect('/hijostrabajador')->with('success', 'Hijo de Trabajador Eliminado!!');
     }

@@ -42,3 +42,6 @@ mix.copyDirectory('resources/vendor/mdi-font', 'public/fonts/mdi-font');
 
 //Copiar script main
 mix.copyDirectory('resources/js/main.js', 'public/js/main.js');
+
+//Copiar Logo
+mix.copy('resources/images/gemba_logo.jpeg', 'public/img/gemba_logo.jpeg');

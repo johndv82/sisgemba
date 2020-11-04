@@ -19,11 +19,11 @@ class ClientesController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('viewContacto', function($row){
-                    $btn = '<a href="javascript:void(0)" class="edit btn btn-info btn-sm">Ver</a>';
+                    $btn = '<a href="javascript:void(0)" class="vercontacto btn btn-info btn-sm">Ver</a>';
                     return $btn;
                 })
                 ->addColumn('action', function($row){
-                    $btn = '<a href="/clientes/edit/'.$row->id.'" class="edit btn btn-warning btn-sm">Editar</a>';
+                    $btn = '<a href="/clientes/edit/'.$row->id.'" class="btn btn-warning btn-sm">Editar</a>';
                     return $btn;
                 })
                 ->rawColumns(['viewContacto', 'action'])
@@ -56,7 +56,6 @@ class ClientesController extends Controller
         $cliente->departamento = $request->get('departamento');
         $cliente->provincia = $request->get('provincia');
         $cliente->distrito = $request->get('distrito');
-        $cliente->estado = 1;
 
         $cliente->save();
         return redirect('/clientes')->with('success', 'Cliente Actualizado!!');
@@ -83,7 +82,7 @@ class ClientesController extends Controller
         $cliente->departamento = $request->input('departamento');
         $cliente->provincia = $request->input('provincia');
         $cliente->distrito = $request->input('distrito');
-        $cliente->estado = 1;
+        $cliente->estado = true;
 
         $cliente->save();
         return redirect()->route('listadoClientes')->with('success', 'Cliente Guardado!!');
@@ -105,7 +104,7 @@ class ClientesController extends Controller
 
     public function delete($id){
         $cliente = Cliente::find($id);
-        $cliente->estado = 0;
+        $cliente->estado = false;
         $cliente->save();
         return redirect('/clientes')->with('success', 'Cliente Eliminado!!');
     }

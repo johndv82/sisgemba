@@ -37,7 +37,7 @@
                                 <th>Tipo Doc.</th>
                                 <th>Número de Doc.</th>
                                 <th>Email</th>
-                                <th>Núm. Celular</th>
+                                <th>Estado</th>
                                 <th>Acción</th>
                             </tr>
                             </thead>
@@ -51,10 +51,49 @@
     </div>
 @endsection
 
+@section('modal')
+    <div class="modal fade" id="modalCambioEstado" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true"
+         data-backdrop="static">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticModalLabel">Actualización de Estado de Trabajador</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form name="frmActualizacionEstado">
+                        @csrf
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="comboEstado" class=" form-control-label">Estado de Trabajador</label>
+                                    <select name="comboEstado" id="comboEstado" class="form-control">
+                                        <option value="0">Seleccione Estado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-danger" id="btnGuardarEstado" type="submit">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
 @section('scripts')
     <script type="text/javascript">
+
+        var idEstadoTrabajador = 0;
+        var table;
+
         $(function () {
-            var table = $('#tblTrabajadores').DataTable({
+            table = $('#tblTrabajadores').DataTable({
                 processing: true,
                 serverSide: true,
                 paging: false,
@@ -67,22 +106,61 @@
                     {data: 'tipodocumento', name: 'tipodocumento'},
                     {data: 'numerodocumento', name: 'numerodocumento'},
                     {data: 'email', name: 'email'},
-                    {data: 'numerocelular', name: 'numerocelular'},
+                    {data: 'estadotrabajador', name: 'estadotrabajador'},
                     {
                         data: 'action',
                         name: 'action',
-                        orderable: true,
-                        searchable: true
+                        orderable: false,
+                        searchable: false
                     },
                 ],
                 "language": {
                     "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Mostrando 0 registros",
                     "search": "Buscar: ",
                     "emptyTable": "No hay ningún registro",
                 }
             });
             table.columns([0]).visible(false);
             $("#tblTrabajadores_filter input[type=\"search\"]").addClass("form-control");
+        });
+
+        $('body').on('click', '.estadoTrabajador', function () {
+            idEstadoTrabajador = $(this).data('id');
+            let idestado = $(this).data('idestado');
+
+            $('#modalCambioEstado').modal('show');
+            //Peticion ajax para traer el listado de estados de trabajador
+            let _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: "{{ route('trabajador.comboestado') }}",
+                method: "POST",
+                data: {idestado: idestado, _token: _token},
+                success: function (result) {
+                    $('#comboEstado').html(result);
+                }
+            });
+        });
+
+        $("#btnGuardarEstado").click(function(){
+            let _token = $('input[name="_token"]').val();
+            let estadoSeleccionado = $("#comboEstado").val();
+            $.ajax({
+                url: "{{ route('cambioestadoTrabajador', 'id') }}".replace('id', idEstadoTrabajador),
+                method: "POST",
+                data: {estadoSeleccionado: estadoSeleccionado, _token: _token},
+                success: function (response) {
+                    if(response.code === 200){
+                        swal.fire(
+                            'Éxito!',
+                            'Estado actualizado correctamente!!',
+                            'success'
+                        );
+                        $('#modalCambioEstado').modal('hide');
+                        table.ajax.reload();
+                    }
+                }
+            });
         });
 
         $("#btnNuevo").click(function(){

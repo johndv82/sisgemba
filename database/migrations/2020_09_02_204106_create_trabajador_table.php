@@ -20,8 +20,8 @@ class CreateTrabajadorTable extends Migration
             $table->string("nombres", 250);
             $table->foreignId('tipodocumento_id')->constrained('tipo_documento');
             $table->string("numerodocumento", 50);
-            $table->string("paisorigen", 250);
-            $table->string("ciudadorigen", 250);
+            $table->integer("paisorigen");
+            $table->integer("ciudadorigen");
             $table->date("fechanacimiento");
             /**Direcciones*/
             $table->string('domicilioorigen', 250);
@@ -40,7 +40,8 @@ class CreateTrabajadorTable extends Migration
             $table->jsonb("datosconyugue");
             $table->jsonb("datosemergencia");
             $table->jsonb("datosestudio");
-            $table->tinyInteger("estado");
+            $table->foreignId("estadotrabajador_id")->constrained('estado_trabajador');
+            $table->boolean("estado");
             $table->timestamps();
         });
     }

@@ -8,6 +8,8 @@ class Trabajador extends Model
 {
     protected $table = "trabajador";
 
+    protected $fillable = [];
+
     public function tipodocumento()
     {
         return $this->belongsTo(TipoDocumento::class,'tipodocumento_id','id');
@@ -15,5 +17,9 @@ class Trabajador extends Model
 
     public function hijos(){
         return $this->hasMany(HijosTrabajador::class,'trabajador_id','id');
+    }
+
+    public function estadotrabajador(){
+        return $this->belongsTo(EstadoTrabajador::class, 'estadotrabajador_id', 'id');
     }
 }

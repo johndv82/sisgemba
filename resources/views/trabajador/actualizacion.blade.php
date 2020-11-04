@@ -54,7 +54,14 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="pais_origen" class="form-control-label">País de Origen</label>
-                                <input type="text" id="pais_origen" name="pais_origen" class="form-control" value="{{$trabajador->paisorigen}}">
+                                <select name="pais_origen" id="pais_origen"
+                                        class="form-control combo_depend"
+                                        data-dependent="">
+                                    <option value="0">Seleccione Pais</option>
+                                    @foreach($paises as $item)
+                                        <option value="{{$item->id}}" {{($item->id==$trabajador->paisorigen)?"selected":""}}>{{$item->nombre}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -62,7 +69,12 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="ciudad_origen" class="form-control-label">Ciudad de Origen</label>
-                                <input type="text" id="ciudad_origen" name="ciudad_origen" class="form-control" value="{{$trabajador->ciudadorigen}}">
+                                <select name="ciudad_origen" id="ciudad_origen" class="form-control">
+                                    <option value="0">Seleccione Ciudad</option>
+                                    @foreach($ciudades as $item)
+                                        <option value="{{$item->id}}" {{($item->id==$trabajador->ciudadorigen)?"selected":""}}>{{$item->nombre}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -124,7 +136,7 @@
                             <div class="form-group">
                                 <label for="departamento_origen" class=" form-control-label">Departamento Orígen</label>
                                 <select name="departamento_origen" id="departamento_origen"
-                                        class="form-control combo_origen"
+                                        class="form-control combo_depend"
                                         data-dependent="provincia_origen">
                                     <option value="0">Seleccione Departamento</option>
                                     @foreach($departamentos as $item)
@@ -136,7 +148,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="provincia_origen" class=" form-control-label">Provincia Origen</label>
-                                <select name="provincia_origen" id="provincia_origen" class="form-control combo_origen"
+                                <select name="provincia_origen" id="provincia_origen" class="form-control combo_depend"
                                         data-dependent="distrito_origen">
                                     <option value="0">Seleccione Provincia</option>
                                     @foreach($provincias_origen as $item)
@@ -173,7 +185,7 @@
                                 <label for="departamento_residencia" class=" form-control-label">Departamento
                                     Residencia</label>
                                 <select name="departamento_residencia" id="departamento_residencia"
-                                        class="form-control combo_origen"
+                                        class="form-control combo_depend"
                                         data-dependent="provincia_residencia">
                                     <option value="0">Seleccione Departamento</option>
                                     @foreach($departamentos as $item)
@@ -187,7 +199,7 @@
                                 <label for="provincia_residencia" class=" form-control-label">Provincia
                                     Residencia</label>
                                 <select name="provincia_residencia" id="provincia_residencia"
-                                        class="form-control combo_origen"
+                                        class="form-control combo_depend"
                                         data-dependent="distrito_residencia">
                                     <option value="0">Seleccione Provincia</option>
                                     @foreach($provincias_residencia as $item)
@@ -540,7 +552,7 @@
             format: 'yyyy-mm-dd'
         });
 
-        $('.combo_origen').change(function () {
+        $('.combo_depend').change(function () {
             if ($(this).val() !== '') {
                 let select = $(this).attr("id");
                 let value = $(this).val();
@@ -601,12 +613,10 @@
                         minlength: 8
                     },
                     pais_origen:{
-                        required: true,
-                        maxlength: 250
+                        valueNotEquals: "0"
                     },
                     ciudad_origen:{
-                        required: true,
-                        maxlength: 250
+                        valueNotEquals: "0"
                     },
                     fecha_nacimiento:{
                         required: true,
@@ -676,10 +686,10 @@
                         minlength: "Este campo no puede contener menos de 8 dígitos."
                     },
                     pais_origen:{
-                        required: "Por favor, rellene este campo."
+                        valueNotEquals: "Por favor, seleccione un país."
                     },
                     ciudad_origen:{
-                        required: "Por favor, rellene este campo."
+                        valueNotEquals: "Por favor, seleccione una ciudad."
                     },
                     fecha_nacimiento:{
                         required: "Por favor, rellene este campo.",

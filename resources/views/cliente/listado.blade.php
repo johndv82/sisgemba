@@ -51,11 +51,65 @@
     </div>
 @endsection
 
+@section('modal')
+    <div class="modal fade" id="modalContacto" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true"
+         data-backdrop="static">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticModalLabel">Contacto de Cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row form-group">
+                        <div class="col-sm-5">
+                            <label for="nombres_contacto" class=" form-control-label">Nombres:</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <p id="nombres_contacto" class="form-control-static"></p>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-5">
+                            <label for="apellidos_contacto" class=" form-control-label">Apellidos:</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <p id="apellidos_contacto" class="form-control-static"></p>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-5">
+                            <label for="email_contacto" class=" form-control-label">Email:</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <p id="email_contacto" class="form-control-static"></p>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-5">
+                            <label for="movil_contacto" class=" form-control-label">Móvil:</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <p id="movil_contacto" class="form-control-static"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
 
 @section('scripts')
     <script type="text/javascript">
+        var table;
         $(function () {
-            var table = $('#tblClientes').DataTable({
+            table = $('#tblClientes').DataTable({
                 processing: true,
                 serverSide: true,
                 paging: false,
@@ -92,6 +146,16 @@
 
         $("#btnNuevo").click(function(){
             window.location.href = "{{ route('addCliente')}}";
+        });
+
+        $("body").on("click", ".vercontacto", function(){
+            var data = table.row( $(this).parents('tr') ).data();
+            var contacto = JSON.parse(data.contacto.replace(/&quot;/g,'"'));
+            $("#email_contacto").html(contacto.email);
+            $("#movil_contacto").html(contacto.movil);
+            $("#nombres_contacto").html(contacto.nombres);
+            $("#apellidos_contacto").html(contacto.apellidos);
+            $("#modalContacto").modal("show");
         });
     </script>
 

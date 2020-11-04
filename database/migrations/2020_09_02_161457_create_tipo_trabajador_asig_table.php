@@ -17,7 +17,7 @@ class CreateTipoTrabajadorAsigTable extends Migration
             $table->id()->autoIncrement();
             $table->string("nombre", 250);
             $table->text("observaciones");
-            $table->tinyInteger("estado");
+            $table->boolean("estado");
             $table->timestamps();
         });
     }

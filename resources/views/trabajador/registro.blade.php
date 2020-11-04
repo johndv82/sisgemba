@@ -55,7 +55,14 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="pais_origen" class="form-control-label">País de Origen</label>
-                                <input type="text" id="pais_origen" name="pais_origen" class="form-control">
+                                <select name="pais_origen" id="pais_origen"
+                                        class="form-control combo_depend"
+                                        data-dependent="ciudad_origen">
+                                    <option value="0">Seleccione País</option>
+                                    @foreach($paises as $item)
+                                        <option value="{{$item->id}}">{{$item->nombre}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -63,7 +70,9 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="ciudad_origen" class="form-control-label">Ciudad de Origen</label>
-                                <input type="text" id="ciudad_origen" name="ciudad_origen" class="form-control">
+                                <select name="ciudad_origen" id="ciudad_origen" class="form-control">
+                                    <option value="0">Seleccione Ciudad</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -125,7 +134,7 @@
                             <div class="form-group">
                                 <label for="departamento_origen" class=" form-control-label">Departamento Orígen</label>
                                 <select name="departamento_origen" id="departamento_origen"
-                                        class="form-control combo_origen"
+                                        class="form-control combo_depend"
                                         data-dependent="provincia_origen">
                                     <option value="0">Seleccione Departamento</option>
                                     @foreach($departamentos as $item)
@@ -137,7 +146,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="provincia_origen" class=" form-control-label">Provincia Origen</label>
-                                <select name="provincia_origen" id="provincia_origen" class="form-control combo_origen"
+                                <select name="provincia_origen" id="provincia_origen" class="form-control combo_depend"
                                         data-dependent="distrito_origen">
                                     <option value="0">Seleccione Provincia</option>
                                 </select>
@@ -168,7 +177,7 @@
                                 <label for="departamento_residencia" class=" form-control-label">Departamento
                                     Residencia</label>
                                 <select name="departamento_residencia" id="departamento_residencia"
-                                        class="form-control combo_origen"
+                                        class="form-control combo_depend"
                                         data-dependent="provincia_residencia">
                                     <option value="0">Seleccione Departamento</option>
                                     @foreach($departamentos as $item)
@@ -182,7 +191,7 @@
                                 <label for="provincia_residencia" class=" form-control-label">Provincia
                                     Residencia</label>
                                 <select name="provincia_residencia" id="provincia_residencia"
-                                        class="form-control combo_origen"
+                                        class="form-control combo_depend"
                                         data-dependent="distrito_residencia">
                                     <option value="0">Seleccione Provincia</option>
                                 </select>
@@ -291,8 +300,7 @@
                     <div class="row form-group">
                         <div class="col-md-4">
                             <a class="btn btn-info btn-sm" id="btnNuevoRegistroHijo" data-toggle="modal"
-                               data-target="#registroHijoTrabajadorModal">Nuevo
-                                Registro</a>
+                               data-target="#registroHijoTrabajadorModal">Nuevo Registro</a>
                             <a class="btn btn-danger btn-sm" id="btnRemoverRegistroHijo">Remover</a>
                         </div>
                     </div>
@@ -586,7 +594,7 @@
             $('#departamento_residencia').val('0');
         });
 
-        $('.combo_origen').change(function () {
+        $('.combo_depend').change(function () {
             if ($(this).val() !== '') {
                 let select = $(this).attr("id");
                 let value = $(this).val();
@@ -604,21 +612,17 @@
         });
 
         $('#departamento_origen').change(function () {
-            $('#provincia_origen').val('0');
             $('#distrito_origen').val('0');
-        });
-
-        $('#provincia_origen').change(function () {
-            $('#distrito_origen').val('0');
+            $('#distrito_origen')
+                .empty()
+                .append('<option value="0">Seleccione Distrito</option>');
         });
 
         $('#departamento_residencia').change(function () {
-            $('#provincia_residencia').val('0');
             $('#distrito_residencia').val('0');
-        });
-
-        $('#provincia_residencia').change(function () {
-            $('#distrito_residencia').val('0');
+            $('#distrito_residencia')
+                .empty()
+                .append('<option value="0">Seleccione Distrito</option>');
         });
 
         function guardarRegistroTrabajadores() {
@@ -683,7 +687,7 @@
                     },
                     dataType: "json",
                     success: function (response) {
-                        if (response.code == 200) {
+                        if (response.code === 200) {
                             window.location = '{{ route('listadoTrabajadores') }}';
                         }
                     }
@@ -775,12 +779,10 @@
                         minlength: 8
                     },
                     pais_origen: {
-                        required: true,
-                        maxlength: 250
+                        valueNotEquals: "0"
                     },
                     ciudad_origen: {
-                        required: true,
-                        maxlength: 250
+                        valueNotEquals: "0"
                     },
                     fecha_nacimiento: {
                         required: true,
@@ -850,10 +852,10 @@
                         minlength: "Este campo no puede contener menos de 8 dígitos."
                     },
                     pais_origen: {
-                        required: "Por favor, rellene este campo."
+                        valueNotEquals: "Por favor, seleccione un país."
                     },
                     ciudad_origen: {
-                        required: "Por favor, rellene este campo."
+                        valueNotEquals: "Por favor, seleccione una ciudad."
                     },
                     fecha_nacimiento: {
                         required: "Por favor, rellene este campo.",

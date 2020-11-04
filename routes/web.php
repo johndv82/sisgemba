@@ -34,6 +34,8 @@ Route::get('/trabajadores/add', [\App\Http\Controllers\TrabajadoresController::c
 Route::post('/trabajadores/save', [\App\Http\Controllers\TrabajadoresController::class, 'save'])->name('saveTrabajador');
 Route::post('/trabajadores/combodepend', [\App\Http\Controllers\TrabajadoresController::class, 'combodepend'])->name('trabajador.combodepend');
 Route::post('/trabajadores/delete/{id}', [\App\Http\Controllers\TrabajadoresController::class, 'delete'])->name('deleteTrabajador');
+Route::post('/trabajadores/cambioestado/{id}', [\App\Http\Controllers\TrabajadoresController::class, 'cambioestado'])->name('cambioestadoTrabajador');
+Route::post('/trabajadores/comboestado', [\App\Http\Controllers\TrabajadoresController::class, 'comboestado'])->name('trabajador.comboestado');
 
 /** Rutas Hijos Trabajador */
 Route::get('/hijostrabajador',[\App\Http\Controllers\HijosTrabajadorController::class, 'index'])->name('hijosTrabajador.index');
@@ -43,3 +45,19 @@ Route::post('/hijostrabajador/update/{id}', [\App\Http\Controllers\HijosTrabajad
 Route::get('/hijostrabajador/add/{id}', [\App\Http\Controllers\HijosTrabajadorController::class, 'add'])->name('addHijosTrabajador');
 Route::post('/hijostrabajador/save', [\App\Http\Controllers\HijosTrabajadorController::class, 'save'])->name('saveHijosTrabajador');
 Route::post('/hijostrabajador/delete/{id}', [\App\Http\Controllers\HijosTrabajadorController::class, 'delete'])->name('deleteHijosTrabajador');
+
+/** Rutas Asignacion Trabajador */
+Route::get('/asignaciontrabajador',[\App\Http\Controllers\AsignacionTrabajadorController::class, 'index'])->name('asignaciontrabajador.index');
+Route::post('/asignaciontrabajador/listadoTrabajadores', [\App\Http\Controllers\AsignacionTrabajadorController::class, 'listadoTrabajadores'])->name('listadoTrabajadoresAsignados');
+Route::get('/asignaciontrabajador/add/{id}', [\App\Http\Controllers\AsignacionTrabajadorController::class, 'add'])->name('addAsignacionTrabajador');
+Route::post('/asignaciontrabajador/save', [\App\Http\Controllers\AsignacionTrabajadorController::class, 'save'])->name('saveAsignacionTrabajador');
+/*Route::post('/asignaciontrabajador/save', function(){
+    dd(request()->all());
+})->name('saveAsignacionTrabajador');*/
+Route::post('/asignaciontrabajador/delete/{id}', [\App\Http\Controllers\AsignacionTrabajadorController::class, 'delete'])->name('deleteAsignacionTrabajador');
+
+/** Rutas Vacaciones Trabajador */
+Route::get('/vacacion',[\App\Http\Controllers\VacacionController::class, 'index'])->name('vacacion.index');
+Route::get('/vacacion/listadoVacacion/{doc}', [\App\Http\Controllers\VacacionController::class, 'listadoVacacion'])->name('listadoVacacion');
+Route::post('/vacacion/save', [\App\Http\Controllers\VacacionController::class, 'save'])->name('saveVacacion');
+Route::post('/vacacion/delete/{id}', [\App\Http\Controllers\VacacionController::class, 'delete'])->name('deleteVacacion');
