@@ -16,11 +16,10 @@ class CreateVacacionTable extends Migration
         Schema::create('vacacion', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->foreignId('trabajador_id')->constrained('trabajador');
+            $table->integer('periodo');
             $table->integer("dias_tomados");
-            $table->string("motivo", 100);
-            $table->text("observaciones");
-            $table->boolean("es_permiso");
             $table->date("fecha_inicio");
+            $table->text("observaciones");
             $table->boolean("estado");
             $table->timestamps();
         });

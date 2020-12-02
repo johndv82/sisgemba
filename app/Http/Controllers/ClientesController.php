@@ -23,7 +23,7 @@ class ClientesController extends Controller
                     return $btn;
                 })
                 ->addColumn('action', function($row){
-                    $btn = '<a href="/clientes/edit/'.$row->id.'" class="btn btn-warning btn-sm">Editar</a>';
+                    $btn = '<a href='.url("clientes/edit/".$row->id).' class="btn btn-warning btn-sm">Editar</a>';
                     return $btn;
                 })
                 ->rawColumns(['viewContacto', 'action'])

@@ -44,6 +44,8 @@
                                     <th data-field="fecha_inicio">Fecha Inicio</th>
                                     <th data-field="fecha_fin">Fecha Fin</th>
                                     <th data-field="dias_ganados" data-footer-formatter="total_dias_ganados">Dias Ganados</th>
+                                    <th data-field="dias_tomados" data-footer-formatter="total_dias_tomados">Dias Tomados</th>
+                                    <th data-field="dias_restantes" data-footer-formatter="total_dias_restantes">Dias Restantes</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -54,8 +56,7 @@
                 </div>
                 <div class="row form-group">
                     <div class="col-md-3">
-                        <a class="btn btn-outline-secondary" id="btnNuevoRegistro" data-toggle="modal"
-                                data-target="#registroVacacion">Nuevo Registro</a>
+                        <a class="btn btn-outline-secondary" id="btnNuevoRegistro">Nuevo Registro</a>
                     </div>
                 </div>
                 <div class="row form-group">
@@ -65,11 +66,10 @@
                                 <thead>
                                 <tr>
                                     <th data-field="id" style="display:none">Id</th>
+                                    <th data-field="periodo">Periodo</th>
                                     <th data-field="dias_tomados">Días Tomados</th>
-                                    <th data-field="motivo">Motivo</th>
-                                    <th data-field="observaciones">Observaciones</th>
-                                    <th data-field="es_permiso">¿Es permiso?</th>
                                     <th data-field="fecha_inicio">Fecha Inicio</th>
+                                    <th data-field="observaciones">Observaciones</th>
                                     <th data-field="operate" data-formatter="operateFormatter" data-events="operateEvents">Acción</th>
                                 </tr>
                                 </thead>
@@ -99,6 +99,13 @@
                     <form id="formRegistroVacacion" name="formRegistroVacacion" autocomplete="off">
                         @csrf
                         <div class="row form-group">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="periodo" class="form-control-label">Periodo</label>
+                                    <select name="periodo" id="periodo" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="dias_tomados" class="form-control-label">Días Tomados</label>
@@ -107,13 +114,6 @@
                                 </div>
                             </div>
                             <div class="col-md-5">
-                                <div class="form-group">
-                                    <label for="motivo" class="form-control-label">Motivo</label>
-                                    <input type="text" id="motivo" name="motivo"
-                                           class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="fecha_inicio" class="form-control-label">Fecha de Inicio</label>
                                     <div class="input-group">
@@ -127,21 +127,11 @@
                             </div>
                         </div>
                         <div class="row form-group align-items-end">
-                            <div class="col-md-9">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="observaciones" class="form-control-label">Observaciones</label>
-                                    <input type="text" id="observaciones" name="observaciones" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <div class="checkbox">
-                                            <label for="es_permiso" class="form-check-label ">
-                                                <input type="checkbox" id="es_permiso" name="es_permiso" class="form-check-input">¿Es Permiso?
-                                            </label>
-                                        </div>
-                                    </div>
+                                    <textarea name="observaciones" id="observaciones" rows="2" class="form-control" style="resize: none;">
+                                    </textarea>
                                 </div>
                             </div>
                         </div>
@@ -159,6 +149,7 @@
 @section('scripts')
 <script type="text/javascript">
     var trabajador = null;
+    var totalDiasGanados = 0;
 
     $('.date').datepicker({
         format: 'yyyy-mm-dd'
@@ -173,12 +164,36 @@
     }
 
     function total_dias_ganados(data) {
-        var field = this.field
-        return data.map(function (row) {
-            return +row[field]
-        }).reduce(function (sum, i) {
-            return sum + i
-        }, 0)
+        var field = this.field;
+        totalDiasGanados = data.map(
+            function (row) {
+                return +row[field];
+            }).reduce(
+            function (sum, i) {
+                return sum + i;
+            }, 0);
+        return totalDiasGanados;
+    }
+
+    function total_dias_tomados(data) {
+        var field = this.field;
+        return data.map(
+            function (row) {
+                return +row[field];
+            }).reduce(
+            function (sum, i) {
+                return sum + i;
+            }, 0);
+    }
+    function total_dias_restantes(data) {
+        var field = this.field;
+        return data.map(
+            function (row) {
+                return +row[field];
+            }).reduce(
+            function (sum, i) {
+                return sum + i;
+            }, 0);
     }
 
     window.operateEvents = {
@@ -251,6 +266,11 @@
                     });
                     $("#btnNuevoRegistro").show();
                     $vacaciones.bootstrapTable('hideColumn', 'id');
+
+                    //Cargar listado de Periodos
+                    response.lista_periodos.forEach(function(element, index){
+                        $("#periodo").append('<option>'+element+'</option>');
+                    });
                 }else{
                     $("#lblNombreTrabajador").css('color', 'red');
                     $("#lblNombreTrabajador").text('Trabajador no encontrado !!!');
@@ -277,11 +297,10 @@
                 method: "POST",
                 data: {
                     trabajador_id: trabajador['id'],
+                    periodo: $('#periodo').val(),
                     dias_tomados: $('#dias_tomados').val(),
-                    motivo: $('#motivo').val(),
-                    observaciones: $('#observaciones').val(),
                     fecha_inicio: $('#fecha_inicio').val(),
-                    es_permiso: $('#es_permiso').is(':checked'),
+                    observaciones: $('#observaciones').val(),
                     _token: _token
                 },
                 dataType: "json",
@@ -344,20 +363,15 @@
                 dias_tomados: {
                     required: true,
                     number:true,
-                    min: 1,
-                    max: 999
-                },
-                motivo: {
-                    required: true,
-                    maxlength: 100
-                },
-                observaciones: {
-                    required: true,
-                    maxlength: 250
+                    min: 1
                 },
                 fecha_inicio: {
                     required: true,
                     date: true
+                },
+                observaciones: {
+                    required: true,
+                    maxlength: 250
                 }
             },
             messages: {
@@ -365,19 +379,15 @@
                     required: "Rellene este campo.",
                     number: "Solo números.",
                     min: "No puede ser 0.",
-                    max: "No puede superar 999."
+                    max: "Cantidad exedida."
                 },
-                motivo: {
-                    required: "Por favor, rellene este campo.",
-                    maxlength: "Este campo no puede contener mas de 100 caracteres.",
+                fecha_inicio: {
+                    required: "Campo vacío.",
+                    date: "Fecha inválida."
                 },
                 observaciones: {
                     required: "Por favor, rellene este campo.",
                     maxlength: "Este campo no puede contener mas de 250 caracteres.",
-                },
-                fecha_inicio: {
-                    required: "Por favor, rellene este campo.",
-                    date: "Fecha inválida."
                 }
             },
             errorPlacement: function (label, element) {
@@ -389,11 +399,33 @@
     }
 
     $("#btnNuevoRegistro").click(function () {
+        $("#periodo option:first").attr("selected", "selected").trigger('change');
         $('#dias_tomados').val('');
-        $('#motivo').val('');
-        $('#observaciones').val('');
         $('#fecha_inicio').val('');
-        $('#es_permiso').prop( "checked", false);
+        $('#observaciones').val('');
+        if(totalDiasGanados >= 30){
+            $("#registroVacacion").modal('show');
+        }else{
+            swal.fire(
+                'Error!',
+                'Aún no se puede registrar vacaciones por falta de dias ganados',
+                'error'
+            );
+        }
+    });
+
+    $("#periodo").on('change', function(e){
+        let valorSelect = this.value;
+        //Validar máximo valor de dias a tomar
+        $vacaciones_ganadas = $("#tblVacacionesGanadas");
+        let dataVacacionGanada = $vacaciones_ganadas.bootstrapTable('getData');
+        dataVacacionGanada.forEach(function(element, index){
+            if(element.periodo == valorSelect){
+                let maximoDiasATomar = element.dias_ganados - element.dias_tomados;
+                $("#dias_tomados").rules('remove', 'max');
+                $("#dias_tomados").rules('add', {max: maximoDiasATomar});
+            }
+        });
     });
 </script>
 @endsection

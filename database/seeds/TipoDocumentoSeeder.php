@@ -14,13 +14,25 @@ class TipoDocumentoSeeder extends Seeder
         DB::table('tipo_documento')->insert([
             [
                 'nombre' => 'Documento Nacional de Identidad',
-                'abreviacion' => 'DNI',
+                'abreviacion' => 'D.N.I.',
                 'observaciones' => 'Dni',
                 'estado' => true,
             ],
             [
                 'nombre' => 'Registro Unico de Contribuyente',
-                'abreviacion' => 'RUC',
+                'abreviacion' => 'R.U.C.',
+                'observaciones' => 'Para empresas',
+                'estado' => true,
+            ],
+            [
+                'nombre' => 'Permiso Temporal de Permanencia',
+                'abreviacion' => 'P.T.P.',
+                'observaciones' => 'NA',
+                'estado' => true,
+            ],
+            [
+                'nombre' => 'Carnet de Extranjería',
+                'abreviacion' => 'C.E.',
                 'observaciones' => 'Para empresas',
                 'estado' => true,
             ]
