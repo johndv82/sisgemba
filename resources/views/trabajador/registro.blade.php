@@ -688,7 +688,22 @@
                     dataType: "json",
                     success: function (response) {
                         if (response.code === 200) {
-                            window.location = '{{ route('listadoTrabajadores') }}';
+                            //SweetAlert Success
+                            //window.location = '{{ route('listadoTrabajadores') }}';
+                            swal.fire({
+                                title: 'Información',
+                                text: response.message,
+                                icon: 'success'
+                            }).then(function(){
+                                window.location = '{{ route('listadoTrabajadores') }}';
+                            });
+                        }else if(response.code === 500){
+                            //SweetAlert Error 500
+                            swal.fire(
+                                'Error!',
+                                'Se ha producido un error: '+response.message,
+                                'error'
+                            );
                         }
                     }
                 });

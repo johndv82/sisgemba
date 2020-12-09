@@ -103,6 +103,8 @@ class TrabajadoresController extends Controller
     }
 
     public function save(Request $request){
+        $code = 0;
+        $message = "";
         $trabajador = new Trabajador();
         $datos_conyugue = json_encode(array(
             'apellidopaterno' => $request->input('apellido_paterno_conyugue'),
@@ -183,10 +185,14 @@ class TrabajadoresController extends Controller
             $trabajador->save();
             $trabajador->hijos()->saveMany($hijosModel);
             DB::commit();
+            $code = 200;
+            $message = "Registro Guardado con Éxito";
         } catch (\Exception $e) {
             DB::rollback();
+            $code = 500;
+            $message = $e->getMessage();
         }
-        return response()->json(['code'=>200]);
+        return response()->json(['code'=>$code, 'message'=>$message]);
     }
 
     public function update(Request $request, $id){
