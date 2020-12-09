@@ -22,7 +22,7 @@ class TrabajadoresController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $model = Trabajador::with(['tipodocumento', 'estadotrabajador'])->get();
+            $model = Trabajador::with(['tipodocumento', 'estadotrabajador'])->where('estado', true)->get();
             return DataTables::of($model)
                 ->addIndexColumn()
                 ->addColumn('tipodocumento', function (Trabajador $trabajador) {
@@ -272,5 +272,12 @@ class TrabajadoresController extends Controller
         $trabajador->estadotrabajador_id = $request->get('estadoSeleccionado');
         $trabajador->save();
         return response()->json(['code' => 200]);
+    }
+
+    public function delete($id){
+        $trabajador = Trabajador::find($id);
+        $trabajador->estado = false;
+        $trabajador->save();
+        return redirect('/trabajadores')->with('success', 'Trabajador Eliminado!!');
     }
 }
