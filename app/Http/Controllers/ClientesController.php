@@ -15,7 +15,7 @@ class ClientesController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Cliente::where('estado','1')->get();
+            $data = Cliente::where('estado',true)->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('viewContacto', function($row){

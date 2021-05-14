@@ -54,29 +54,6 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="pais_origen" class="form-control-label">País de Origen</label>
-                                <select name="pais_origen" id="pais_origen"
-                                        class="form-control combo_depend"
-                                        data-dependent="ciudad_origen">
-                                    <option value="0">Seleccione País</option>
-                                    @foreach($paises as $item)
-                                        <option value="{{$item->id}}">{{$item->nombre}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="ciudad_origen" class="form-control-label">Ciudad de Origen</label>
-                                <select name="ciudad_origen" id="ciudad_origen" class="form-control">
-                                    <option value="0">Seleccione Ciudad</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
                                 <label for="fecha_nacimiento" class="form-control-label">Fecha de Nacimiento</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
@@ -87,6 +64,8 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row form-group">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="estado_civil" class="form-control-label">Estado Civil</label>
@@ -98,14 +77,14 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-md-4">
+                        <div class="col-md-8">
                             <div class="form-group">
                                 <label for="email" class="form-control-label">Email</label>
                                 <input type="text" id="email" name="email" class="form-control">
                             </div>
                         </div>
+                    </div>
+                    <div class="row form-group">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="numero_fijo" class=" form-control-label">Número Fijo</label>
@@ -124,20 +103,15 @@
                         <h4 class="text-left">Dirección de Origen</h4>
                         <hr/>
                     </div>
-                    <div class="form-group">
-                        <label for="domicilio_origen" class=" form-control-label">Domicilio de Origen</label>
-                        <input type="text" id="domicilio_origen" name="domicilio_origen" class="form-control">
-                    </div>
-
                     <div class="row form-group">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="departamento_origen" class=" form-control-label">Departamento Orígen</label>
-                                <select name="departamento_origen" id="departamento_origen"
+                                <label for="pais_origen" class="form-control-label">País de Origen</label>
+                                <select name="pais_origen" id="pais_origen"
                                         class="form-control combo_depend"
-                                        data-dependent="provincia_origen">
-                                    <option value="0">Seleccione Departamento</option>
-                                    @foreach($departamentos as $item)
+                                        data-dependent="departamento_origen">
+                                    <option value="0">Seleccione País</option>
+                                    @foreach($paises as $item)
                                         <option value="{{$item->id}}">{{$item->nombre}}</option>
                                     @endforeach
                                 </select>
@@ -145,19 +119,38 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="provincia_origen" class=" form-control-label">Provincia Origen</label>
+                                <label for="departamento_origen" class=" form-control-label">Departamento de Orígen</label>
+                                <select name="departamento_origen" id="departamento_origen"
+                                        class="form-control combo_depend"
+                                        data-dependent="provincia_origen">
+                                    <option value="0">Seleccione Departamento</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="provincia_origen" class=" form-control-label">Provincia de Origen</label>
                                 <select name="provincia_origen" id="provincia_origen" class="form-control combo_depend"
                                         data-dependent="distrito_origen">
                                     <option value="0">Seleccione Provincia</option>
                                 </select>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row form-group">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="distrito_origen" class=" form-control-label">Distrito Origen</label>
+                                <label for="distrito_origen" class=" form-control-label">Distrito de Origen</label>
                                 <select name="distrito_origen" id="distrito_origen" class="form-control">
                                     <option value="0">Seleccione Distrito</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="domicilio_origen" class=" form-control-label">Domicilio de Origen</label>
+                                <input type="text" id="domicilio_origen" name="domicilio_origen" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -166,12 +159,21 @@
                         <h4 class="text-left">Dirección de Residencia</h4>
                         <hr/>
                     </div>
-                    <div class="form-group">
-                        <label for="domicilio_residencia" class=" form-control-label">Domicilio de Residencia</label>
-                        <input type="text" id="domicilio_residencia" name="domicilio_residencia" class="form-control">
-                    </div>
 
                     <div class="row form-group">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="pais_residencia" class="form-control-label">País de Residencia</label>
+                                <select name="pais_residencia" id="pais_residencia"
+                                        class="form-control combo_depend"
+                                        data-dependent="departamento_residencia">
+                                    <option value="0">Seleccione País</option>
+                                    @foreach($paises as $item)
+                                        <option value="{{$item->id}}">{{$item->nombre}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="departamento_residencia" class=" form-control-label">Departamento
@@ -180,9 +182,6 @@
                                         class="form-control combo_depend"
                                         data-dependent="provincia_residencia">
                                     <option value="0">Seleccione Departamento</option>
-                                    @foreach($departamentos as $item)
-                                        <option value="{{$item->id}}">{{$item->nombre}}</option>
-                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -197,12 +196,20 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div class="row form-group">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="distrito_residencia" class=" form-control-label">Distrito Residencia</label>
                                 <select name="distrito_residencia" id="distrito_residencia" class="form-control">
                                     <option value="0">Seleccione Distrito</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="domicilio_residencia" class=" form-control-label">Domicilio de Residencia</label>
+                                <input type="text" id="domicilio_residencia" name="domicilio_residencia" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -590,8 +597,8 @@
         });
 
         $(function () {
-            $('#departamento_origen').val('0');
-            $('#departamento_residencia').val('0');
+            $('#pais_origen').val('0');
+            $('#pais_residencia').val('0');
         });
 
         $('.combo_depend').change(function () {
@@ -625,6 +632,28 @@
                 .append('<option value="0">Seleccione Distrito</option>');
         });
 
+        $('#pais_origen').change(function () {
+            $('#provincia_origen').val('0');
+            $('#provincia_origen')
+                .empty()
+                .append('<option value="0">Seleccione Provincia</option>');
+            $('#distrito_origen').val('0');
+            $('#distrito_origen')
+                .empty()
+                .append('<option value="0">Seleccione Distrito</option>');
+        });
+
+        $('#pais_residencia').change(function () {
+            $('#provincia_residencia').val('0');
+            $('#provincia_residencia')
+                .empty()
+                .append('<option value="0">Seleccione Distrito</option>');
+            $('#distrito_residencia').val('0');
+            $('#distrito_residencia')
+                .empty()
+                .append('<option value="0">Seleccione Distrito</option>');
+        });
+
         function guardarRegistroTrabajadores() {
             let _token = $('input[name="_token"]').val();
             if ($("#formTrabajador").valid()) {
@@ -638,7 +667,7 @@
                         tipo_documento: $('#tipo_documento').val(),
                         numero_documento: $('#numero_documento').val(),
                         pais_origen: $('#pais_origen').val(),
-                        ciudad_origen: $('#ciudad_origen').val(),
+                        pais_residencia: $('#pais_residencia').val(),
                         fecha_nacimiento: $('#fecha_nacimiento').val(),
                         estado_civil: $('#estado_civil').val(),
                         email: $('#email').val(),
@@ -796,7 +825,7 @@
                     pais_origen: {
                         valueNotEquals: "0"
                     },
-                    ciudad_origen: {
+                    pais_residencia: {
                         valueNotEquals: "0"
                     },
                     fecha_nacimiento: {
@@ -869,8 +898,8 @@
                     pais_origen: {
                         valueNotEquals: "Por favor, seleccione un país."
                     },
-                    ciudad_origen: {
-                        valueNotEquals: "Por favor, seleccione una ciudad."
+                    pais_residencia: {
+                        valueNotEquals: "Por favor, seleccione un país."
                     },
                     fecha_nacimiento: {
                         required: "Por favor, rellene este campo.",

@@ -16,7 +16,7 @@ class CreateEstadoTrabajadorTable extends Migration
         Schema::create('estado_trabajador', function (Blueprint $table) {
             $table->id();
             $table->string('nombre', 100);
-            $table->text("observaciones");
+            $table->text("observaciones")->nullable(true);
             $table->boolean("estado");
             $table->timestamps();
         });

@@ -21,7 +21,7 @@ class CreateTrabajadorTable extends Migration
             $table->foreignId('tipodocumento_id')->constrained('tipo_documento');
             $table->string("numerodocumento", 50);
             $table->integer("paisorigen");
-            $table->integer("ciudadorigen");
+            $table->integer("paisresidencia");  //ciudadorigen ANTERIOR
             $table->date("fechanacimiento");
             /**Direcciones*/
             $table->string('domicilioorigen', 250);

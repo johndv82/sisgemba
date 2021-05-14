@@ -14,9 +14,12 @@ class CreateProvinciaTable extends Migration
     public function up()
     {
         Schema::create('provincia', function (Blueprint $table) {
-            $table->id();
+            $table->id()->autoIncrement();
             $table->string("nombre", 250);
             $table->integer("departamento_id");
+            $table->integer("pais_id");
+            $table->boolean("estado");
+            $table->timestamps();
         });
     }
 

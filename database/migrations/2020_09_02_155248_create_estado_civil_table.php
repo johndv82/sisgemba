@@ -16,7 +16,7 @@ class CreateEstadoCivilTable extends Migration
         Schema::create('estado_civil', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string("nombre", 250);
-            $table->text("observaciones");
+            $table->text("observaciones")->nullable(true);
             $table->boolean("estado");
             $table->timestamps();
         });

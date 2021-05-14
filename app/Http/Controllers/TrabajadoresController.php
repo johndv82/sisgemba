@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Ciudad;
 use App\Distrito;
 use App\EstadoCivil;
 use App\EstadoTrabajador;
@@ -45,26 +44,25 @@ class TrabajadoresController extends Controller
     }
 
     public function add(){
-        $departamentos = Departamento::all();
         $paises = Pais::all();
         $tipos_documentos = TipoDocumento::all();
         $estados_civil = EstadoCivil::all();
         $nivel_estudios = NivelEstudios::all();
-        return view('trabajador.registro', compact('departamentos', 'tipos_documentos', 'estados_civil', 'nivel_estudios', 'paises'));
+        return view('trabajador.registro', compact('tipos_documentos', 'estados_civil', 'nivel_estudios', 'paises'));
     }
 
     public function edit($id){
         $trabajador = Trabajador::find($id);
+        $paises = Pais::all();
+        $departamentos_origen = Departamento::get()->where('pais_id',$trabajador->paisorigen);
         $provincias_origen = Provincia::get()->where('departamento_id',$trabajador->departamentoorigen);
         $distritos_origen = Distrito::get()->where('provincia_id',$trabajador->provinciaorigen);
 
+        $departamentos_residencia = Departamento::get()->where('pais_id',$trabajador->paisresidencia);
         $provincias_residencia = Provincia::get()->where('departamento_id',$trabajador->departamentoresidencia);
         $distritos_residencia = Distrito::get()->where('provincia_id',$trabajador->provinciaresidencia);
 
-        $departamentos = Departamento::all();
 
-        $paises = Pais::all();
-        $ciudades = Ciudad::get()->where('pais_id', $trabajador->paisorigen);
 
         $tipos_documentos = TipoDocumento::all();
         $estados_civil = EstadoCivil::all();
@@ -75,8 +73,8 @@ class TrabajadoresController extends Controller
             compact(
                 'trabajador',
                 'paises',
-                'ciudades',
-                'departamentos',
+                'departamentos_origen',
+                'departamentos_residencia',
                 'tipos_documentos',
                 'estados_civil',
                 'provincias_origen',
@@ -143,7 +141,7 @@ class TrabajadoresController extends Controller
         $trabajador->tipodocumento_id = $request->get('tipo_documento');
         $trabajador->numerodocumento = $request->get('numero_documento');
         $trabajador->paisorigen = $request->get('pais_origen');
-        $trabajador->ciudadorigen = $request->get('ciudad_origen');
+        $trabajador->paisresidencia = $request->get('pais_residencia');
         $trabajador->fechanacimiento = $request->get('fecha_nacimiento');
         $trabajador->domicilioorigen = $request->get('domicilio_origen');
         $trabajador->distritoorigen = $request->get('distrito_origen');
@@ -234,7 +232,7 @@ class TrabajadoresController extends Controller
         $trabajador->tipodocumento_id = $request->get('tipo_documento');
         $trabajador->numerodocumento = $request->get('numero_documento');
         $trabajador->paisorigen = $request->get('pais_origen');
-        $trabajador->ciudadorigen = $request->get('ciudad_origen');
+        $trabajador->paisresidencia = $request->get('pais_residencia');
         $trabajador->fechanacimiento = $request->get('fecha_nacimiento');
         $trabajador->domicilioorigen = $request->get('domicilio_origen');
         $trabajador->distritoorigen = $request->get('distrito_origen');

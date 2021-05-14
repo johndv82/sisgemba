@@ -17,7 +17,7 @@ class CreateRegimenSaludTable extends Migration
             $table->id()->autoIncrement();
             $table->string("nombre", 250);
             $table->string("abreviacion", 25);
-            $table->text("observaciones");
+            $table->text("observaciones")->nullable(true);
             $table->boolean("estado");
             $table->timestamps();
         });

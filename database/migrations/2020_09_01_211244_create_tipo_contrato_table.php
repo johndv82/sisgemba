@@ -16,7 +16,7 @@ class CreateTipoContratoTable extends Migration
         Schema::create('tipo_contrato', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string("nombre", 250);
-            $table->text("observaciones");
+            $table->text("observaciones")->nullable(true);
             $table->boolean("estado");
             $table->timestamps();
         });

@@ -17,6 +17,7 @@ class CreatePeriodicidadRemuneracionTable extends Migration
             $table->id();
             $table->string("nombre", 250);
             $table->integer("cantidaddias");
+            $table->text("observaciones")->nullable(true);
             $table->boolean("estado");
             $table->timestamps();
         });
