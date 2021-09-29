@@ -29,8 +29,7 @@
                         <i class="fas fa-calendar-check"></i>Vacaciones</a>
                 </li>
                 <li class="has-sub">
-                    <a class="js-arrow" href="#">
-                        <i class="fas fa-gears"></i>Mantenimiento</a>
+                    <a class="js-arrow" href="#"><i class="fas fa-gears"></i>Mantenimiento</a>
                     <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                         <li>
                             <a href="{{url('estadocivil')}}"><i class="fas fa-gear"></i>Estado Civil</a>
@@ -64,6 +63,14 @@
                         </li>
                         <li>
                             <a href="{{url('banco')}}"><i class="fas fa-bank"></i>Banco</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="has-sub">
+                    <a class="js-arrow" href="#"><i class="fas fa-qrcode"></i>Ubigeo</a>
+                    <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
+                        <li>
+                            <a href="{{url('pais')}}"><i class="fas fa-gear"></i>Paises</a>
                         </li>
                     </ul>
                 </li>

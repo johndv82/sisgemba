@@ -11,4 +11,8 @@ class Cliente extends Model
     protected $fillable = [
         'razonsocial', 'nombrecomercial', 'ruc', 'contacto', 'domicilio','created_at'
     ];
+
+    protected $casts = [
+        'created_at' => 'date:d-m-Y',
+    ];
 }

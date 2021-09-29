@@ -424,13 +424,6 @@
                         required: true,
                         maxlength: 250,
                         email: true
-                    },
-                    motivo_cese: {
-                        required: true
-                    },
-                    fecha_entrega_liquidacion:{
-                        required: true,
-                        date: true
                     }
                 },
                 messages: {
@@ -492,13 +485,6 @@
                         required: "Por favor, rellene este campo.",
                         maxlenth: "Este campo no puede contener mas de 50 dígitos.",
                         email: "Por favor, ingrese un e-mail válido."
-                    },
-                    motivo_cese: {
-                        required: "Por favor, seleccione un elemento.",
-                    },
-                    fecha_entrega_liquidacion:{
-                        required: "Por favor, ingrese este campo.",
-                        date: "Fecha inválida."
                     }
                 },
                 errorPlacement: function (label, element) {

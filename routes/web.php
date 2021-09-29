@@ -117,3 +117,9 @@ Route::get('/banco',[\App\Http\Controllers\BancoController::class, 'index'])->na
 Route::post('/banco/listado', [\App\Http\Controllers\BancoController::class, 'listado'])->name('listadoBanco');
 Route::post('/banco/save', [\App\Http\Controllers\BancoController::class, 'save'])->name('saveBanco');
 Route::post('/banco/delete/{id}', [\App\Http\Controllers\BancoController::class, 'delete'])->name('deleteBanco');
+
+//Pais
+Route::get('/pais',[\App\Http\Controllers\PaisController::class, 'index'])->name('pais');
+Route::post('/pais/listado', [\App\Http\Controllers\PaisController::class, 'listado'])->name('listadoPais');
+Route::post('/pais/save', [\App\Http\Controllers\PaisController::class, 'save'])->name('savePais');
+Route::post('/pais/delete/{id}', [\App\Http\Controllers\PaisController::class, 'delete'])->name('deletePais');
