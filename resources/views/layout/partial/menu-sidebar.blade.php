@@ -70,7 +70,10 @@
                     <a class="js-arrow" href="#"><i class="fas fa-qrcode"></i>Ubigeo</a>
                     <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                         <li>
-                            <a href="{{url('pais')}}"><i class="fas fa-gear"></i>Paises</a>
+                            <a href="{{url('pais')}}"><i class="fas fa-map"></i>Paises</a>
+                        </li>
+                        <li>
+                            <a href="{{url('departamento')}}"><i class="fas fa-map"></i>Departamentos</a>
                         </li>
                     </ul>
                 </li>

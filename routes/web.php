@@ -123,3 +123,9 @@ Route::get('/pais',[\App\Http\Controllers\PaisController::class, 'index'])->name
 Route::post('/pais/listado', [\App\Http\Controllers\PaisController::class, 'listado'])->name('listadoPais');
 Route::post('/pais/save', [\App\Http\Controllers\PaisController::class, 'save'])->name('savePais');
 Route::post('/pais/delete/{id}', [\App\Http\Controllers\PaisController::class, 'delete'])->name('deletePais');
+
+//Departamento
+Route::get('/departamento',[\App\Http\Controllers\DepartamentoController::class, 'index'])->name('departamento');
+Route::post('/departamento/listado', [\App\Http\Controllers\DepartamentoController::class, 'listado'])->name('listadoDepartamento');
+Route::post('/departamento/save', [\App\Http\Controllers\DepartamentoController::class, 'save'])->name('saveDepartamento');
+Route::post('/departamento/delete/{id}', [\App\Http\Controllers\DepartamentoController::class, 'delete'])->name('deleteDepartamento');

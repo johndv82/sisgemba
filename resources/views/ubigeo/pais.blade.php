@@ -123,6 +123,9 @@
             $('#nombre').val('');
             $('#btnRegistrar').text('Registrar')
             $("#modalRegistroPais").modal('show');
+            $("#modalRegistroPais").on('shown.bs.modal', function() {
+                $('#nombre').focus()
+            });
         });
 
         CargarTablaPaises = function(){

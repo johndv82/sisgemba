@@ -9,7 +9,7 @@ class PaisController extends Controller
 {
     public function index()
     {
-        return view('mantenimiento.pais');
+        return view('ubigeo.pais');
     }
 
     public function listado(Request $request)
