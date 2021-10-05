@@ -136,3 +136,12 @@ Route::post('/provincia/listado', [\App\Http\Controllers\ProvinciaController::cl
 Route::post('/provincia/save', [\App\Http\Controllers\ProvinciaController::class, 'save'])->name('saveProvincia');
 Route::post('/provincia/delete/{id}', [\App\Http\Controllers\ProvinciaController::class, 'delete'])->name('deleteProvincia');
 Route::post('/provincia/listadoDepartamentos', [\App\Http\Controllers\ProvinciaController::class, 'listadoDepartamentos'])->name('listadoDepartamentosProvincia');
+
+
+//Distrito
+Route::get('/distrito',[\App\Http\Controllers\DistritoController::class, 'index'])->name('distrito');
+Route::post('/distrito/listado', [\App\Http\Controllers\DistritoController::class, 'listado'])->name('listadoDistrito');
+Route::post('/distrito/save', [\App\Http\Controllers\DistritoController::class, 'save'])->name('saveDistrito');
+Route::post('/distrito/delete/{id}', [\App\Http\Controllers\DistritoController::class, 'delete'])->name('deleteDistrito');
+Route::post('/distrito/listadoDepartamentos', [\App\Http\Controllers\DistritoController::class, 'listadoDepartamentos'])->name('listadoDepartamentosDistrito');
+Route::post('/distrito/listadoProvincias', [\App\Http\Controllers\DistritoController::class, 'listadoProvincias'])->name('listadoProvinciasDistrito');

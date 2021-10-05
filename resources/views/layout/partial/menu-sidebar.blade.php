@@ -78,6 +78,9 @@
                         <li>
                             <a href="{{url('provincia')}}"><i class="fas fa-map"></i>Provincias</a>
                         </li>
+                        <li>
+                            <a href="{{url('distrito')}}"><i class="fas fa-map"></i>Distritos</a>
+                        </li>
                     </ul>
                 </li>
                 <li>
