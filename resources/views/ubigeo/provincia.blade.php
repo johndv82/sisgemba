@@ -26,6 +26,7 @@
                                     <th>Nombre</th>
                                     <th>Departamento</th>
                                     <th>País</th>
+                                    <th>Creado</th>
                                     <th>Acción</th>
                                 </tr>
                                 </thead>
@@ -185,6 +186,7 @@
                     {data: 'nombre', name: 'nombre'},
                     {data: 'departamento', name: 'departamento'},
                     {data: 'pais', name: 'pais'},
+                    {data: 'created_at', name: 'created_at'},
                     {
                         data: 'action',
                         name: 'action',

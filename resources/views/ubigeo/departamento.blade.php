@@ -25,6 +25,7 @@
                                     <th>Id</th>
                                     <th>Nombre</th>
                                     <th>País</th>
+                                    <th>Creado</th>
                                     <th>Acción</th>
                                 </tr>
                                 </thead>
@@ -159,6 +160,7 @@
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                     {data: 'nombre', name: 'nombre'},
                     {data: 'pais', name: 'pais'},
+                    {data: 'created_at', name: 'created_at'},
                     {
                         data: 'action',
                         name: 'action',
