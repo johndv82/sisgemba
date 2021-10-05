@@ -76,6 +76,7 @@
 @section('scripts')
     <script type="text/javascript">
         var idRegistro = 0;
+        var datosPaises = [];
 
         function operateFormatter(value, row, index) {
             return '<a class="delete btn btn-sm btn-danger" href="javascript:void(0)">Eliminar</a>';
@@ -139,6 +140,7 @@
                     $tabla = $("#tblPaises");
                     $tabla.bootstrapTable('destroy');
                     if(response.code === 200){
+                        datosPaises = response.paises;
                         $tabla.bootstrapTable({data: response.paises,
                             formatLoadingMessage: function() {
                                 return '';
@@ -158,33 +160,50 @@
             CargarTablaPaises();
         });
 
+        EncontrarPaisDuplicado = function(nombrePais){
+            var container = JSON.stringify(datosPaises);
+            let encontrado = false;
+            $.each(JSON.parse(container) , function (key, value) {
+                if(value.nombre.trim().toUpperCase() === nombrePais.trim().toUpperCase()){
+                    encontrado = true;
+                    return false;
+                }
+            });
+            return encontrado;
+        }
+
         $('#btnRegistrar').click(function(){
-            //Ingresar / Editar
+            //Ingresar
             if ($("#formMantenimientoPais").valid()) {
-                let _token = $('input[name="_token"]').val();
-                $.ajax({
-                    url: "{{ route('savePais') }}",
-                    method: "POST",
-                    data: {
-                        nombre: $('#nombre').val(),
-                        _token: _token
-                    },
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response.code === 200) {
-                            //Sweet Alert
-                            swal.fire(
-                                'Éxito!',
-                                'Registro Guardado Correctamente',
-                                'success'
-                            );
-                            //Actualizar tabla
-                            CargarTablaPaises();
-                            //Ocultar Modal
-                            $('#modalRegistroPais').modal('hide');
+                if (!EncontrarPaisDuplicado($('#nombre').val())){
+                    let _token = $('input[name="_token"]').val();
+                    $.ajax({
+                        url: "{{ route('savePais') }}",
+                        method: "POST",
+                        data: {
+                            nombre: $('#nombre').val(),
+                            _token: _token
+                        },
+                        dataType: 'json',
+                        success: function (response) {
+                            if (response.code === 200) {
+                                //Sweet Alert
+                                swal.fire(
+                                    'Éxito!',
+                                    'Registro Guardado Correctamente',
+                                    'success'
+                                );
+                                //Actualizar tabla
+                                CargarTablaPaises();
+                                //Ocultar Modal
+                                $('#modalRegistroPais').modal('hide');
+                            }
                         }
-                    }
-                });
+                    });
+                }else{
+                    swal.fire('El nombre ya está en uso');
+                }
+
             }
         });
 

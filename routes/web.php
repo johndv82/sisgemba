@@ -129,3 +129,10 @@ Route::get('/departamento',[\App\Http\Controllers\DepartamentoController::class,
 Route::post('/departamento/listado', [\App\Http\Controllers\DepartamentoController::class, 'listado'])->name('listadoDepartamento');
 Route::post('/departamento/save', [\App\Http\Controllers\DepartamentoController::class, 'save'])->name('saveDepartamento');
 Route::post('/departamento/delete/{id}', [\App\Http\Controllers\DepartamentoController::class, 'delete'])->name('deleteDepartamento');
+
+//Provincia
+Route::get('/provincia',[\App\Http\Controllers\ProvinciaController::class, 'index'])->name('provincia');
+Route::post('/provincia/listado', [\App\Http\Controllers\ProvinciaController::class, 'listado'])->name('listadoProvincia');
+Route::post('/provincia/save', [\App\Http\Controllers\ProvinciaController::class, 'save'])->name('saveProvincia');
+Route::post('/provincia/delete/{id}', [\App\Http\Controllers\ProvinciaController::class, 'delete'])->name('deleteProvincia');
+Route::post('/provincia/listadoDepartamentos', [\App\Http\Controllers\ProvinciaController::class, 'listadoDepartamentos'])->name('listadoDepartamentosProvincia');

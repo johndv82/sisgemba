@@ -22,28 +22,32 @@
                 <strong class="card-title">Listado de Trabajadores</strong>
             </div>
             <div class="card-body">
-                <div class="col-md-3">
-                    <button class="btn btn-outline-secondary" id="btnNuevo">Nuevo Registro</button>
+                <div class="row form-group">
+                    <div class="col-md-3">
+                        <button class="btn btn-outline-secondary" id="btnNuevo">Nuevo Registro</button>
+                    </div>
                 </div>
-                <div class="col-lg-12">
-                    <div class="table-responsive table--no-card m-b-30">
-                        <table class="table table-borderless table-data3" id="tblTrabajadores" style="width: 100%;">
-                            <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Apellido Pat.</th>
-                                <th>Apellido Mat.</th>
-                                <th>Nombres</th>
-                                <th>Tipo Doc.</th>
-                                <th>Número de Doc.</th>
-                                <th>Email</th>
-                                <th>Estado</th>
-                                <th>Acción</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <div class="table-responsive table--no-card m-b-30">
+                            <table class="table table-borderless table-data3" id="tblTrabajadores" style="width: 100%;">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Apellido Pat.</th>
+                                    <th>Apellido Mat.</th>
+                                    <th>Nombres</th>
+                                    <th>Tipo Doc.</th>
+                                    <th>Número de Doc.</th>
+                                    <th>Email</th>
+                                    <th>Estado</th>
+                                    <th>Acción</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -96,7 +100,7 @@
             table = $('#tblTrabajadores').DataTable({
                 processing: true,
                 serverSide: true,
-                paging: false,
+                paging: true,
                 ajax: "{{ route('listadoTrabajadores') }}",
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
@@ -114,11 +118,21 @@
                         searchable: false
                     },
                 ],
-                "language": {
-                    "info": "Mostrando página _PAGE_ de _PAGES_",
-                    "infoEmpty": "Mostrando 0 registros",
-                    "search": "Buscar: ",
-                    "emptyTable": "No hay ningún registro",
+                pagingType: "simple",
+                language: {
+                    info: "Mostrando página _PAGE_ de _PAGES_",
+                    infoEmpty: "Mostrando 0 registros",
+                    search: "Buscar: ",
+                    emptyTable: "No hay ningún registro",
+                    paginate:{
+                        "next": "<ul class='pagination'><li class='page-item'><a class='page-link' href='#'>Siguiente</a></li></ul>",
+                        "previous": "<ul class='pagination'><li class='page-item'><a class='page-link' href='#'>Anterior</a></li></ul>"
+                    },
+                    lengthMenu: 'Mostrar &nbsp;<select class="form-control">'+
+                        '<option value="5">5</option>'+
+                        '<option value="10">10</option>'+
+                        '<option value="15">15</option>'+
+                        '</select> &nbsp;registros'
                 }
             });
             table.columns([0]).visible(false);

@@ -1,14 +1,14 @@
 @extends('layout.dash')
 
 @section('titulo')
-    Mantenimiento de Departamentos
+    Mantenimiento de Provincias
 @endsection
 
 @section('contenido')
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <strong class="card-title">Mantenimiento de Departamentos</strong>
+                <strong class="card-title">Mantenimiento de Provincias</strong>
             </div>
             <div class="card-body">
                 <div class="row form-group">
@@ -19,11 +19,12 @@
                 <div class="row form-group">
                     <div class="col-md-12">
                         <div class="table-responsive table--no-card m-b-30">
-                            <table class="table table-borderless table-data3" id="tblDepartamentos" style="width: 100%;">
+                            <table class="table table-borderless table-data3" id="tblProvincias" style="width: 100%;">
                                 <thead>
                                 <tr>
                                     <th>Id</th>
                                     <th>Nombre</th>
+                                    <th>Departamento</th>
                                     <th>País</th>
                                     <th>Acción</th>
                                 </tr>
@@ -40,18 +41,18 @@
 @endsection
 
 @section('modal')
-    <div class="modal fade" id="modalRegistroDepartamento" tabindex="-1" role="dialog"
+    <div class="modal fade" id="modalRegistroProvincia" tabindex="-1" role="dialog"
          aria-labelledby="mediumModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="mediumModalLabel">Registro de Departamento</h5>
+                    <h5 class="modal-title" id="mediumModalLabel">Registro de Provincias</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="formMantenimientoDepartamento" name="formMantenimientoDepartamento" autocomplete="off" onsubmit="return false;">
+                    <form id="formMantenimientoProvincia" name="formMantenimientoProvincia" autocomplete="off" onsubmit="return false;">
                         @csrf
                         <div class="row form-group">
                             <div class="col-md-12">
@@ -74,6 +75,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="departamento" class=" form-control-label">Departamento</label>
+                                    <select name="departamento" id="departamento" class="form-control">
+                                        <option value="0">Seleccione Departamento</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -90,7 +101,7 @@
     <script type="text/javascript">
         var idRegistro = 0;
         var table;
-        var datosDepartamentos = [];
+        var datosProvincias = [];
 
         EliminarRegistro = function(id){
             swal.fire({
@@ -106,7 +117,7 @@
                 if (result.isConfirmed) {
                     let _token = $('input[name="_token"]').val();
                     $.ajax({
-                        url: "{{ route('deleteDepartamento', 'idReg') }}".replace('idReg', id),
+                        url: "{{ route('deleteProvincia', 'idReg') }}".replace('idReg', id),
                         method: "POST",
                         data: {_token: _token},
                         dataType: 'json',
@@ -132,32 +143,47 @@
             $('.badge').css('display', 'none');
             $('#nombre').val('');
             $('#btnRegistrar').text('Registrar')
-            $("#modalRegistroDepartamento").modal('show');
-            $("#modalRegistroDepartamento").on('shown.bs.modal', function() {
+            $("#modalRegistroProvincia").modal('show');
+            $("#modalRegistroProvincia").on('shown.bs.modal', function() {
                 $('#nombre').focus()
             });
+        });
+
+        $('#pais').change(function () {
+            if ($(this).val() !== '') {
+                let _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: "{{ route('listadoDepartamentosProvincia') }}",
+                    method: "POST",
+                    data: {pais_id: $(this).val(), _token: _token},
+                    success: function (result) {
+                        $('#departamento').html(result);
+                    }
+                });
+            }
         });
 
         $(function(){
             //Llamar a ajax de controlador para poblar array con datos
             $.ajax({
-                url: "{{ route('departamento') }}",
+                url: "{{ route('provincia') }}",
                 success: function(response){
-                    datosDepartamentos = response.data;
+                    datosProvincias = response.data;
                 },
                 dataType: 'json'
             });
 
             //Cargar Datatable con array poblado
             idRegistro = 0;
-            table = $('#tblDepartamentos').DataTable({
+            table = $('#tblProvincias').DataTable({
                 processing: true,
                 serverSide: true,
                 paging: true,
-                ajax: datosDepartamentos,
+                ajax: datosProvincias,
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                     {data: 'nombre', name: 'nombre'},
+                    {data: 'departamento', name: 'departamento'},
                     {data: 'pais', name: 'pais'},
                     {
                         data: 'action',
@@ -184,15 +210,14 @@
                 }
             });
             table.columns([0]).visible(false);
-            $("#tblDepartamentos_filter input[type=\"search\"]").addClass("form-control");
+            $("#tblProvincias_filter input[type=\"search\"]").addClass("form-control");
         });
 
-
-        EncontrarDepartamentoDuplicado = function(nombreDep){
-            var container = JSON.stringify(datosDepartamentos);
+        EncontrarProvinciaDuplicada = function(nombreProv){
+            var container = JSON.stringify(datosProvincias);
             let encontrado = false;
             $.each(JSON.parse(container) , function (key, value) {
-                if(value.nombre.trim().toUpperCase() === nombreDep.trim().toUpperCase()){
+                if(value.nombre.trim().toUpperCase() === nombreProv.trim().toUpperCase()){
                     encontrado = true;
                     return false;
                 }
@@ -202,14 +227,15 @@
 
         $('#btnRegistrar').click(function(){
             //Ingresar / Editar
-            if ($("#formMantenimientoDepartamento").valid()) {
-                if (!EncontrarDepartamentoDuplicado($('#nombre').val())){
+            if ($("#formMantenimientoProvincia").valid()) {
+                if (!EncontrarProvinciaDuplicada($('#nombre').val())){
                     let _token = $('input[name="_token"]').val();
                     $.ajax({
-                        url: "{{ route('saveDepartamento') }}",
+                        url: "{{ route('saveProvincia') }}",
                         method: "POST",
                         data: {
                             nombre: $('#nombre').val(),
+                            departamento_id: $('#departamento').val(),
                             pais_id: $('#pais').val(),
                             _token: _token
                         },
@@ -225,7 +251,7 @@
                                 //Actualizar tabla
                                 table.ajax.reload();
                                 //Ocultar Modal
-                                $('#modalRegistroDepartamento').modal('hide');
+                                $('#modalRegistroProvincia').modal('hide');
                             }
                         }
                     });
@@ -235,12 +261,12 @@
             }
         });
 
-        if ($("#formMantenimientoDepartamento").length > 0) {
+        if ($("#formMantenimientoProvincia").length > 0) {
             $.validator.addMethod("valueNotEquals", function (value, element, arg) {
                 return arg !== value;
             });
 
-            $('#formMantenimientoDepartamento').validate({
+            $('#formMantenimientoProvincia').validate({
                 rules: {
                     nombre: {
                         required: true,
@@ -249,6 +275,9 @@
                     pais: {
                         valueNotEquals: "0"
                     },
+                    departamento: {
+                        valueNotEquals: "0"
+                    }
                 },
                 messages: {
                     nombre: {
@@ -258,6 +287,9 @@
                     pais: {
                         valueNotEquals: "Por favor, seleccione un país."
                     },
+                    departamento: {
+                        valueNotEquals: "Por favor, seleccione un departamento."
+                    }
                 },
                 errorPlacement: function (label, element) {
                     label.addClass('badge badge-danger');
