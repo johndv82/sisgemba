@@ -8,6 +8,10 @@ class AsignacionTrabajador extends Model
 {
     protected $table = "asignacion_trabajador";
 
+    protected $casts = [
+        'fechaingreso' => 'date:d/m/Y',
+    ];
+
     public function cargolaboral()
     {
         return $this->belongsTo(CargoLaboral::class,'cargolaboral_id','id');

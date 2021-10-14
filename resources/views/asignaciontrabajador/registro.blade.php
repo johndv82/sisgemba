@@ -354,7 +354,7 @@
 @section('scripts')
     <script type="text/javascript">
         $('.date').datepicker({
-            format: 'yyyy-mm-dd'
+            format: 'dd/mm/yyyy'
         });
 
         //Validate Form
@@ -370,7 +370,7 @@
                     },
                     fecha_ingreso: {
                         required: true,
-                        date: true
+                        date: false
                     },
                     cargo_laboral:{
                         valueNotEquals: "0"
@@ -501,6 +501,8 @@
                 },
                 wrapper: 'span'
             });
+
+
         }
     </script>
 @endsection

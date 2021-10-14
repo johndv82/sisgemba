@@ -243,7 +243,7 @@
             success: function (response) {
                 $vacaciones_ganadas = $("#tblVacacionesGanadas");
                 $vacaciones = $("#tblVacaciones");
-                if(response.code === 200){
+                if(response.code === 200) {
                     trabajador = response.trabajador;
                     $("#lblEtiquetaNombre").show();
                     $("#lblNombreTrabajador").css('color', 'black');
@@ -251,13 +251,15 @@
 
                     $vacaciones_ganadas.bootstrapTable('destroy');
                     $vacaciones.bootstrapTable('destroy');
-                    $vacaciones_ganadas.bootstrapTable({data: JSON.parse(response.vacacion_ganada),
-                        formatLoadingMessage: function() {
+                    $vacaciones_ganadas.bootstrapTable({
+                        data: JSON.parse(response.vacacion_ganada),
+                        formatLoadingMessage: function () {
                             return '';
                         }
                     });
-                    $vacaciones.bootstrapTable({data: response.vacaciones_trabajador,
-                        formatLoadingMessage: function() {
+                    $vacaciones.bootstrapTable({
+                        data: response.vacaciones_trabajador,
+                        formatLoadingMessage: function () {
                             return '';
                         },
                         formatNoMatches: function () {
@@ -268,9 +270,15 @@
                     $vacaciones.bootstrapTable('hideColumn', 'id');
 
                     //Cargar listado de Periodos
-                    response.lista_periodos.forEach(function(element, index){
-                        $("#periodo").append('<option>'+element+'</option>');
+                    response.lista_periodos.forEach(function (element, index) {
+                        $("#periodo").append('<option>' + element + '</option>');
                     });
+                }else if(response.code === 408){
+                    $("#lblNombreTrabajador").css('color', 'orange');
+                    $("#lblNombreTrabajador").text('Trabajador no Asignado !!!');
+                    $("#lblEtiquetaNombre").hide();
+                    $vacaciones_ganadas.bootstrapTable('destroy');
+                    $vacaciones.bootstrapTable('destroy');
                 }else{
                     $("#lblNombreTrabajador").css('color', 'red');
                     $("#lblNombreTrabajador").text('Trabajador no encontrado !!!');

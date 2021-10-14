@@ -9,7 +9,7 @@ class Provincia extends Model
     protected $table = "provincia";
 
     protected $casts = [
-        'created_at' => 'date:d-m-Y',
+        'created_at' => 'date:d/m/Y',
     ];
 
     protected $fillable = ['id', 'nombre', 'created_at'];

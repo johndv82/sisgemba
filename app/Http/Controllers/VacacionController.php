@@ -24,24 +24,29 @@ class VacacionController extends Controller
 
         if ($trabajador != null) {
             $asignacion = AsignacionTrabajador::where([['estado', true], ['trabajador_id', $trabajador->id]])->first();
-            $vacacion_ganada = generarVacacionTrabajador($asignacion->fechaingreso);
-            $vacaciones_trabajador = Vacacion::where([['trabajador_id', $trabajador->id],['estado', true]])->get();
+            //Si no esta asignado retorna 404
+            if ($asignacion != null){
+                $vacacion_ganada = generarVacacionTrabajador($asignacion->fechaingreso);
+                $vacaciones_trabajador = Vacacion::where([['trabajador_id', $trabajador->id],['estado', true]])->get();
 
-            //Recorrer vacaciones ganadas adjuntando dias tomados registrados en BD
-            $vacacion_agrupada = Vacacion::where([['trabajador_id', $trabajador->id],['estado', true]])
-                ->groupBy('periodo')
-                ->selectRaw('sum(dias_tomados) as sum_dias, periodo')
-                ->get();
+                //Recorrer vacaciones ganadas adjuntando dias tomados registrados en BD
+                $vacacion_agrupada = Vacacion::where([['trabajador_id', $trabajador->id],['estado', true]])
+                    ->groupBy('periodo')
+                    ->selectRaw('sum(dias_tomados) as sum_dias, periodo')
+                    ->get();
 
-            foreach($vacacion_ganada as $index=>$vacacion){
-                foreach ($vacacion_agrupada as $vac_tra){
-                    if($vac_tra->periodo == $vacacion['periodo']){
-                        $vacacion_ganada[$index]['dias_tomados'] = $vac_tra->sum_dias;
-                        $vacacion_ganada[$index]['dias_restantes'] = intval($vacacion_ganada[$index]['dias_ganados']) - intval($vac_tra->sum_dias);
-                        break;
+                foreach($vacacion_ganada as $index=>$vacacion){
+                    foreach ($vacacion_agrupada as $vac_tra){
+                        if($vac_tra->periodo == $vacacion['periodo']){
+                            $vacacion_ganada[$index]['dias_tomados'] = $vac_tra->sum_dias;
+                            $vacacion_ganada[$index]['dias_restantes'] = intval($vacacion_ganada[$index]['dias_ganados']) - intval($vac_tra->sum_dias);
+                            break;
+                        }
                     }
+                    array_push($lista_periodos, $vacacion['periodo']);
                 }
-                array_push($lista_periodos, $vacacion['periodo']);
+            }else{
+                $respuesta = 408;
             }
         } else {
             $respuesta = 404;

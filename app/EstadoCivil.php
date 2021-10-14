@@ -9,6 +9,6 @@ class EstadoCivil extends Model
     protected $table = "estado_civil";
 
     protected $casts = [
-        'created_at' => 'date:d-m-Y',
+        'created_at' => 'date:d/m/Y',
     ];
 }

@@ -1,14 +1,14 @@
 @extends('layout.dash')
 
 @section('titulo')
-    Mantenimiento de Vinculos Laborales
+    Mantenimiento de Vínculos Laborales
 @endsection
 
 @section('contenido')
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <strong class="card-title">Mantenimiento de Vinculos Laborales</strong>
+                <strong class="card-title">Mantenimiento de Vínculos Laborales</strong>
             </div>
             <div class="card-body">
                 <div class="row form-group">
@@ -46,7 +46,7 @@
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="mediumModalLabel">Registro de Cargo Laboral</h5>
+                    <h5 class="modal-title" id="mediumModalLabel">Registro de Vínculo Laboral</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

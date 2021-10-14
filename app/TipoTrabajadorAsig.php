@@ -9,6 +9,6 @@ class TipoTrabajadorAsig extends Model
     protected $table = "tipo_trabajador_asig";
 
     protected $casts = [
-        'created_at' => 'date:d-m-Y',
+        'created_at' => 'date:d/m/Y',
     ];
 }

@@ -9,7 +9,7 @@ class Distrito extends Model
     protected $table = "distrito";
 
     protected $casts = [
-        'created_at' => 'date:d-m-Y',
+        'created_at' => 'date:d/m/Y',
     ];
 
     protected $fillable = ['id', 'nombre', 'created_at'];

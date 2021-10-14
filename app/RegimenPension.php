@@ -9,6 +9,6 @@ class RegimenPension extends Model
     protected $table = "regimen_pension";
 
     protected $casts = [
-        'created_at' => 'date:d-m-Y',
+        'created_at' => 'date:d/m/Y',
     ];
 }

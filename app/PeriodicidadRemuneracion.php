@@ -9,6 +9,6 @@ class PeriodicidadRemuneracion extends Model
     protected $table = "periodicidad_remuneracion";
 
     protected $casts = [
-        'created_at' => 'date:d-m-Y',
+        'created_at' => 'date:d/m/Y',
     ];
 }

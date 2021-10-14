@@ -44,7 +44,7 @@
                             <a href="{{url('cargolaboral')}}"><i class="fas fa-gear"></i>Cargo Laboral</a>
                         </li>
                         <li>
-                            <a href="{{url('vinculolaboral')}}"><i class="fas fa-gear"></i>Vinculo Laboral</a>
+                            <a href="{{url('vinculolaboral')}}"><i class="fas fa-gear"></i>Vínculo Laboral</a>
                         </li>
                         <li>
                             <a href="{{url('regimenpension')}}"><i class="fas fa-gear"></i>Régimen de Pensión</a>
