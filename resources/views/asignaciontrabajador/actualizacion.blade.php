@@ -11,7 +11,7 @@
                 <strong>Datos de Asignación de Trabajador</strong>
             </div>
             <form method="POST" id="formAsignacionTrabajador" name="formAsignacionTrabajador"
-                  action="{{route('saveAsignacionTrabajador')}}"
+                  action="{{route('updateAsignacionTrabajador', $asignacion->id)}}"
                   autocomplete="off">
                 @csrf
                 <div class="card-body card-block">
@@ -21,21 +21,15 @@
                                 <label for="cliente" class="form-control-label">Cliente</label>
                                 <input type="text" readonly id="cliente" name="cliente"
                                        class="form-control"
-                                       value="{{$cliente->razonsocial." - ".$cliente->nombrecomercial}}">
-                                <input type="hidden" id="hidIdCliente" name="hidIdCliente" value="{{$cliente->id}}"/>
+                                       value="{{$asignacion->cliente->razonsocial." - ".$asignacion->cliente->nombrecomercial}}">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="trabajador" class="form-control-label">Trabajador</label>
-                                <select name="trabajador" id="trabajador"
-                                        class="form-control combo">
-                                    <option value="0">Seleccione Trabajador</option>
-                                    @foreach($trabajadores as $item)
-                                        <option
-                                            value="{{$item->id}}">{{$item->nombres.", ".$item->apellidopaterno}}</option>
-                                    @endforeach
-                                </select>
+                                <input type="text" readonly id="trabajador" name="trabajador"
+                                       class="form-control"
+                                       value="{{$asignacion->trabajador->nombres." - ".$asignacion->trabajador->apellidopaterno}}">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -47,7 +41,7 @@
                                             <i class="fa fa-calendar-o"></i>
                                         </div>
                                         <input type="text" id="fecha_ingreso" name="fecha_ingreso"
-                                               class="date form-control">
+                                               class="date form-control" value="{{date('d/m/Y', strtotime($asignacion->fechaingreso)) }}">
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +55,7 @@
                                         class="form-control combo">
                                     <option value="0">Seleccione Cargo Laboral</option>
                                     @foreach($cargos_laborales as $item)
-                                        <option value="{{$item->id}}">{{$item->nombre}}</option>
+                                        <option value="{{$item->id}}" {{($item->id==$asignacion->cargolaboral_id)?"selected":""}}>{{$item->nombre}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -73,7 +67,7 @@
                                         class="form-control combo">
                                     <option value="0">Seleccione Vínculo Laboral</option>
                                     @foreach($vinculos_laborales as $item)
-                                        <option value="{{$item->id}}">{{$item->nombre}}</option>
+                                        <option value="{{$item->id}}" {{($item->id==$asignacion->vinculolaboral_id)?"selected":""}}>{{$item->nombre}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -85,8 +79,7 @@
                                     <div class="input-group-addon">
                                         S/.
                                     </div>
-                                    <input type="text" id="remuneracion" name="remuneracion" class="form-control">
-                                    <div class="input-group-addon">.00</div>
+                                    <input type="text" id="remuneracion" name="remuneracion" class="form-control" value="{{$asignacion->remuneracion}}">
                                 </div>
                             </div>
                         </div>
@@ -96,7 +89,7 @@
                             <div class="form-group">
                                 <label for="horario" class="form-control-label">Horario</label>
                                 <input type="text" id="horario" name="horario"
-                                       class="form-control">
+                                       class="form-control" value="{{$asignacion->horario}}">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -106,7 +99,7 @@
                                         class="form-control combo">
                                     <option value="0">Seleccione Régimen Pensión</option>
                                     @foreach($regimenes_pension as $item)
-                                        <option value="{{$item->id}}">{{$item->nombre}}</option>
+                                        <option value="{{$item->id}}" {{($item->id==$asignacion->regimenpension_id)?"selected":""}}>{{$item->nombre}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -118,7 +111,7 @@
                                         class="form-control combo">
                                     <option value="0">Seleccione Régimen Salud</option>
                                     @foreach($regimenes_salud as $item)
-                                        <option value="{{$item->id}}">{{$item->nombre}}</option>
+                                        <option value="{{$item->id}}" {{($item->id==$asignacion->regimensalud_id)?"selected":""}}>{{$item->nombre}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -133,7 +126,7 @@
                                         class="form-control combo">
                                     <option value="0">Seleccione Banco</option>
                                     @foreach($periodicidades_remuneracion as $item)
-                                        <option value="{{$item->id}}">{{$item->nombre}}</option>
+                                        <option value="{{$item->id}}" {{($item->id==$asignacion->periodicidadremuneracion_id)?"selected":""}}>{{$item->nombre}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -145,7 +138,7 @@
                                         class="form-control combo">
                                     <option value="0">Seleccione Banco</option>
                                     @foreach($tipos_contrato as $item)
-                                        <option value="{{$item->id}}">{{$item->nombre}}</option>
+                                        <option value="{{$item->id}}" {{($item->id==$asignacion->tipocontrato_id)?"selected":""}}>{{$item->nombre}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -157,7 +150,7 @@
                                         class="form-control combo">
                                     <option value="0">Seleccione Banco</option>
                                     @foreach($tipos_trabajador_asig as $item)
-                                        <option value="{{$item->id}}">{{$item->nombre}}</option>
+                                        <option value="{{$item->id}}" {{($item->id==$asignacion->tipotrabajadorasig_id)?"selected":""}}>{{$item->nombre}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -175,7 +168,7 @@
                                         class="form-control combo">
                                     <option value="0">Seleccione Banco</option>
                                     @foreach($bancos as $item)
-                                        <option value="{{$item->id}}">{{$item->nombre}}</option>
+                                        <option value="{{$item->id}}" {{($item->id==json_decode($asignacion->depositosueldo, true)["banco"])?"selected":""}}>{{$item->nombre}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -184,14 +177,14 @@
                             <div class="form-group">
                                 <label for="numero_cuenta" class="form-control-label">Número de Cuenta</label>
                                 <input type="text" id="numero_cuenta" name="numero_cuenta"
-                                       class="form-control">
+                                       class="form-control" value="{{json_decode($asignacion->depositosueldo, true)["numerocuenta"]}}">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="cuenta_cci" class="form-control-label">Cuenta CCI</label>
                                 <input type="text" id="cuenta_cci" name="cuenta_cci"
-                                       class="form-control">
+                                       class="form-control" value="{{json_decode($asignacion->depositosueldo, true)["cuentacci"]}}">
                             </div>
                         </div>
                     </div>
@@ -204,21 +197,21 @@
                             <div class="form-group">
                                 <label for="equipo_movil" class="form-control-label">Equipo Móvil</label>
                                 <input type="text" id="equipo_movil" name="equipo_movil"
-                                       class="form-control">
+                                       class="form-control" value="{{json_decode($asignacion->materialtrabajo, true)["equipomovil"]}}">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="laptop" class="form-control-label">Laptop</label>
                                 <input type="text" id="laptop" name="laptop"
-                                       class="form-control">
+                                       class="form-control" value="{{json_decode($asignacion->materialtrabajo, true)["laptop"]}}">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="correo_corporativo" class="form-control-label">Correo Corporativo</label>
                                 <input type="text" id="correo_corporativo" name="correo_corporativo"
-                                       class="form-control">
+                                       class="form-control" value="{{json_decode($asignacion->materialtrabajo, true)["correocorporativo"]}}">
                             </div>
                         </div>
                     </div>
@@ -232,7 +225,8 @@
                                 <div class="form-check">
                                     <div class="checkbox">
                                         <label for="cv" class="form-check-label ">
-                                            <input type="checkbox" id="cv" name="cv" class="form-check-input">CV
+                                            <input type="checkbox" id="cv" name="cv" class="form-check-input"
+                                                {{(json_decode($asignacion->documentacion, true)["cv"]) == true?"checked":""}}>CV
                                         </label>
                                     </div>
                                 </div>
@@ -243,7 +237,8 @@
                                 <div class="form-check">
                                     <div class="checkbox">
                                         <label for="dni_fisico" class="form-check-label ">
-                                            <input type="checkbox" id="dni_fisico" name="dni_fisico" class="form-check-input">DNI Físico
+                                            <input type="checkbox" id="dni_fisico" name="dni_fisico" class="form-check-input"
+                                                {{(json_decode($asignacion->documentacion, true)["dni"]) == true?"checked":""}}>DNI Físico
                                         </label>
                                     </div>
                                 </div>
@@ -254,7 +249,8 @@
                                 <div class="form-check">
                                     <div class="checkbox">
                                         <label for="recibo_servicios" class="form-check-label ">
-                                            <input type="checkbox" id="recibo_servicios" name="recibo_servicios" class="form-check-input">Recibo de Servicios
+                                            <input type="checkbox" id="recibo_servicios" name="recibo_servicios" class="form-check-input"
+                                                {{(json_decode($asignacion->documentacion, true)["reciboservicios"]) == true?"checked":""}}>Recibo de Servicios
                                         </label>
                                     </div>
                                 </div>
@@ -265,7 +261,8 @@
                                 <div class="form-check">
                                     <div class="checkbox">
                                         <label for="ficha_ingreso" class="form-check-label ">
-                                            <input type="checkbox" id="ficha_ingreso" name="ficha_ingreso" class="form-check-input">Ficha de Ingreso
+                                            <input type="checkbox" id="ficha_ingreso" name="ficha_ingreso" class="form-check-input"
+                                                {{(json_decode($asignacion->documentacion, true)["fichaingreso"]) == true?"checked":""}}>Ficha de Ingreso
                                         </label>
                                     </div>
                                 </div>
@@ -276,7 +273,8 @@
                                 <div class="form-check">
                                     <div class="checkbox">
                                         <label for="contrato" class="form-check-label ">
-                                            <input type="checkbox" id="contrato" name="contrato" class="form-check-input">Contrato
+                                            <input type="checkbox" id="contrato" name="contrato" class="form-check-input"
+                                                {{(json_decode($asignacion->documentacion, true)["contrato"]) == true?"checked":""}}>Contrato
                                         </label>
                                     </div>
                                 </div>
@@ -287,7 +285,8 @@
                                 <div class="form-check">
                                     <div class="checkbox">
                                         <label for="consulta_equifax" class="form-check-label ">
-                                            <input type="checkbox" id="consulta_equifax" name="consulta_equifax" class="form-check-input">Consulta Equifax
+                                            <input type="checkbox" id="consulta_equifax" name="consulta_equifax" class="form-check-input"
+                                                {{(json_decode($asignacion->documentacion, true)["consultaequifax"]) == true?"checked":""}}>Consulta Equifax
                                         </label>
                                     </div>
                                 </div>
@@ -303,12 +302,14 @@
                             <div class="form-check">
                                 <div class="radio">
                                     <label for="renuncia" class="form-check-label ">
-                                        <input type="radio" id="renuncia" name="motivo_cese" value="renuncia" class="form-check-input">Renuncia
+                                        <input type="radio" id="renuncia" name="motivo_cese" value="renuncia" class="form-check-input"
+                                            {{(json_decode($asignacion->motivocese, true)["motivo"]) == "renuncia"?"checked":""}}>Renuncia
                                     </label>
                                 </div>
                                 <div class="radio">
                                     <label for="despido" class="form-check-label ">
-                                        <input type="radio" id="despido" name="motivo_cese" value="despido" class="form-check-input">Despido
+                                        <input type="radio" id="despido" name="motivo_cese" value="despido" class="form-check-input"
+                                            {{(json_decode($asignacion->motivocese, true)["motivo"]) == "despido"?"checked":""}}>Despido
                                     </label>
                                 </div>
                             </div>
@@ -318,7 +319,8 @@
                                 <div class="form-check">
                                     <div class="checkbox">
                                         <label for="sin_renovacion" class="form-check-label ">
-                                            <input type="checkbox" id="sin_renovacion" name="sin_renovacion" class="form-check-input">Sin Renovación de Contrato
+                                            <input type="checkbox" id="sin_renovacion" name="sin_renovacion" class="form-check-input"
+                                                {{(json_decode($asignacion->motivocese, true)["sinrenovacioncontrato"]) == true?"checked":""}}>Sin Renovación de Contrato
                                         </label>
                                     </div>
                                 </div>
@@ -331,22 +333,61 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar-o"></i>
                                     </div>
-                                    <input type="text" id="fecha_entrega_liquidacion" name="fecha_entrega_liquidacion" class="date form-control">
+                                    <input type="text" id="fecha_entrega_liquidacion" name="fecha_entrega_liquidacion" class="date form-control"
+                                    value="{{json_decode($asignacion->motivocese, true)["fechaentregaliquidacion"]}}">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-success btn-sm">
-                        <i class="fa fa-dot-circle-o"></i> Guardar
-                    </button>
-                    <button type="reset" class="btn btn-secondary btn-sm"
-                            onclick="window.location='{{ route("asignaciontrabajador.index") }}'">
-                        <i class="fa fa-ban"></i> Cancelar
-                    </button>
+                    <div class="row form-group">
+                        <div class="col-md-10">
+                            <button type="submit" class="btn btn-success btn-sm">
+                                <i class="fa fa-dot-circle-o"></i> Actualizar
+                            </button>
+                            <button type="reset" class="btn btn-danger btn-sm" data-toggle="modal"
+                                    data-target="#modalConfirmacion">
+                                <i class="fa fa-ban"></i> Eliminar
+                            </button>
+                        </div>
+                        <div class="col-md-2 text-right">
+                            <button type="reset" class="btn btn-secondary btn-sm"
+                                    onclick="window.location='{{ route("asignaciontrabajador.index") }}'">
+                                <i class="fa fa-ban"></i> Cancelar
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </form>
+        </div>
+    </div>
+@endsection
+
+@section('modal')
+    <div class="modal fade" id="modalConfirmacion" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true"
+         data-backdrop="static">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticModalLabel">Confirmación</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Confirme si desea eliminar permanentemente esté registro:
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <form action="{{route('deleteAsignacionTrabajador', $asignacion->id)}}" method="post">
+                        @csrf
+                        <button class="btn btn-danger" type="submit">Confirmar</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

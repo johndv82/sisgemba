@@ -39,7 +39,9 @@ Route::post('/hijostrabajador/delete/{id}', [\App\Http\Controllers\HijosTrabajad
 Route::get('/asignaciontrabajador',[\App\Http\Controllers\AsignacionTrabajadorController::class, 'index'])->name('asignaciontrabajador.index');
 Route::post('/asignaciontrabajador/listadoTrabajadores', [\App\Http\Controllers\AsignacionTrabajadorController::class, 'listadoTrabajadores'])->name('listadoTrabajadoresAsignados');
 Route::get('/asignaciontrabajador/add/{id}', [\App\Http\Controllers\AsignacionTrabajadorController::class, 'add'])->name('addAsignacionTrabajador');
+Route::get('/asignaciontrabajador/edit/{id}', [\App\Http\Controllers\AsignacionTrabajadorController::class, 'edit'])->name('editAsignacionTrabajador');
 Route::post('/asignaciontrabajador/save', [\App\Http\Controllers\AsignacionTrabajadorController::class, 'save'])->name('saveAsignacionTrabajador');
+Route::post('/asignaciontrabajador/update/{id}', [\App\Http\Controllers\AsignacionTrabajadorController::class, 'update'])->name('updateAsignacionTrabajador');
 /*Route::post('/asignaciontrabajador/save', function(){
     dd(request()->all());
 })->name('saveAsignacionTrabajador');*/

@@ -78,34 +78,6 @@
     </div>
 @endsection
 
-@section('modal')
-    <div class="modal fade" id="modalConfirmacion" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true"
-         data-backdrop="static">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticModalLabel">Confirmación</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        Confirme si desea eliminar permanentemente esté registro:
-                    </p>
-                    <input type="hidden" id="hidAsignacion"/>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <form onsubmit="routeDelete(this)" method="post">
-                        @csrf
-                        <button class="btn btn-danger" type="submit">Confirmar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection
 
 @section('scripts')
     <script type="text/javascript">
@@ -114,18 +86,18 @@
         $(function(){
             $("#btnNuevo").hide();
         });
-        function routeDelete(form){
-            let ruta = "{{ route('deleteAsignacionTrabajador', ":idAsigTrabajador")}}";
-            form.action = ruta.replace(":idAsigTrabajador", $("#hidAsignacion").val());
-        }
+
         function operateFormatter(value, row, index) {
-            return '<a class="edit btn btn-sm btn-danger" href="javascript:void(0)">Eliminar</a>';
+            return '<a class="edit btn btn-sm btn-warning" href="javascript:void(0)">Editar</a>';
         }
 
         window.operateEvents = {
-            'click .edit': function (e, value, row, index) {
+            /*'click .edit': function (e, value, row, index) {
                 $("#hidAsignacion").val(row.id);
                 $("#modalConfirmacion").modal();
+            }*/
+            'click .edit': function (e, value, row, index) {
+                window.location='{{ url('/asignaciontrabajador/edit/id') }}'.replace('id', row.id);
             }
         }
 
@@ -140,6 +112,7 @@
                     dataType: 'json',
                     success: function (response) {
                         $tabla = $("#tblTrabajadoresAsignados");
+                        $tabla.bootstrapTable('destroy');
                         if(response.code === 200){
                             cliente = response.cliente;
                             $("#lblEtiquetaCliente").show();

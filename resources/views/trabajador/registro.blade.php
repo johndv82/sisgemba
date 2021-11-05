@@ -593,7 +593,7 @@
 @section('scripts')
     <script type="text/javascript">
         $('.date').datepicker({
-            format: 'yyyy-mm-dd'
+            format: 'dd/mm/yyyy'
         });
 
         $(function () {
@@ -830,7 +830,11 @@
                     },
                     fecha_nacimiento: {
                         required: true,
-                        date: true
+                        date: false
+                    },
+                    fecha_nacimiento_conyugue: {
+                        required: false,
+                        date: false
                     },
                     estado_civil: {
                         valueNotEquals: "0"
@@ -985,7 +989,7 @@
                     },
                     fecha_nacimiento_hijo: {
                         required: true,
-                        date: true
+                        date: false
                     },
                     ocupacion_hijo:{
                         required: true,

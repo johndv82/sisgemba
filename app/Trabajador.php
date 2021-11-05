@@ -19,6 +19,10 @@ class Trabajador extends Model
         return $this->hasMany(HijosTrabajador::class,'trabajador_id','id');
     }
 
+    public function asignaciones(){
+        return $this->hasMany(AsignacionTrabajador::class,'trabajador_id','id');
+    }
+
     public function estadotrabajador(){
         return $this->belongsTo(EstadoTrabajador::class, 'estadotrabajador_id', 'id');
     }

@@ -31,8 +31,8 @@ function cuadroVacacionArray($año_inicio, $año_actual, $fecha_hoy, $date_init)
         $fecha_fin_periodo_format = new DateTime($fecha_fin_periodo);
         $objeto = array(
             'periodo' => intval($i),
-            'fecha_inicio' => $fecha_inicio_periodo_format->format('Y-m-d'),
-            'fecha_fin' => $fecha_fin_periodo_format->format('Y-m-d'),
+            'fecha_inicio' => $fecha_inicio_periodo_format->format('d/m/Y'),
+            'fecha_fin' => $fecha_fin_periodo_format->format('d/m/Y'),
             'dias_ganados' => $dias_ganados,
             'dias_tomados' => 0,
             'dias_restantes' => 0

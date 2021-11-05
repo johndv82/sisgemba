@@ -152,7 +152,7 @@
     var totalDiasGanados = 0;
 
     $('.date').datepicker({
-        format: 'yyyy-mm-dd'
+        format: 'dd/mm/yyyy'
     });
 
     $(function(){
@@ -270,6 +270,7 @@
                     $vacaciones.bootstrapTable('hideColumn', 'id');
 
                     //Cargar listado de Periodos
+                    $("#periodo").empty();
                     response.lista_periodos.forEach(function (element, index) {
                         $("#periodo").append('<option>' + element + '</option>');
                     });
@@ -375,7 +376,7 @@
                 },
                 fecha_inicio: {
                     required: true,
-                    date: true
+                    date: false
                 },
                 observaciones: {
                     required: true,
@@ -411,7 +412,7 @@
         $('#dias_tomados').val('');
         $('#fecha_inicio').val('');
         $('#observaciones').val('');
-        if(totalDiasGanados >= 30){
+        if(totalDiasGanados >= 1){
             $("#registroVacacion").modal('show');
         }else{
             swal.fire(

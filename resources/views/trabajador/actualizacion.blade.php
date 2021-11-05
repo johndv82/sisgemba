@@ -59,7 +59,7 @@
                                         <i class="fa fa-calendar-o"></i>
                                     </div>
                                     <input type="text" id="fecha_nacimiento" name="fecha_nacimiento"
-                                           class="date form-control" value="{{$trabajador->fechanacimiento}}">
+                                           class="date form-control" value="{{date('d/m/Y', strtotime($trabajador->fechanacimiento))}}">
                                 </div>
                             </div>
                         </div>
@@ -557,7 +557,7 @@
 @section('scripts')
     <script type="text/javascript">
         $('.date').datepicker({
-            format: 'yyyy-mm-dd'
+            format: 'dd/mm/yyyy'
         });
 
         $('.combo_depend').change(function () {
@@ -650,7 +650,7 @@
                     },
                     fecha_nacimiento:{
                         required: true,
-                        date: true
+                        date: false
                     },
                     estado_civil:{
                         valueNotEquals: "0"
