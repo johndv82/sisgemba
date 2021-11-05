@@ -120,7 +120,7 @@ class AsignacionTrabajadorController extends Controller
         ));
 
         $asignacion_trabajador->trabajador_id = $request->get('trabajador');
-        $asignacion_trabajador->fechaingreso = $request->get('fecha_ingreso');
+        $asignacion_trabajador->fechaingreso = Carbon::createFromFormat('d/m/Y', $request->get('fecha_ingreso'))->format('Y-m-d');
         $asignacion_trabajador->cargolaboral_id = $request->get('cargo_laboral');
         $asignacion_trabajador->vinculolaboral_id = $request->get('vinculo_laboral');
         $asignacion_trabajador->remuneracion = $request->get('remuneracion');

@@ -12,6 +12,7 @@ use App\Provincia;
 use App\TipoDocumento;
 use App\Trabajador;
 use App\Departamento;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
@@ -142,7 +143,7 @@ class TrabajadoresController extends Controller
         $trabajador->numerodocumento = $request->get('numero_documento');
         $trabajador->paisorigen = $request->get('pais_origen');
         $trabajador->paisresidencia = $request->get('pais_residencia');
-        $trabajador->fechanacimiento = $request->get('fecha_nacimiento');
+        $trabajador->fechanacimiento = Carbon::createFromFormat('d/m/Y', $request->get('fecha_nacimiento'))->format('Y-m-d');
         $trabajador->domicilioorigen = $request->get('domicilio_origen');
         $trabajador->distritoorigen = $request->get('distrito_origen');
         $trabajador->provinciaorigen = $request->get('provincia_origen');
@@ -233,7 +234,7 @@ class TrabajadoresController extends Controller
         $trabajador->numerodocumento = $request->get('numero_documento');
         $trabajador->paisorigen = $request->get('pais_origen');
         $trabajador->paisresidencia = $request->get('pais_residencia');
-        $trabajador->fechanacimiento = $request->get('fecha_nacimiento');
+        $trabajador->fechanacimiento = Carbon::createFromFormat('d/m/Y', $request->get('fecha_nacimiento'))->format('Y-m-d');
         $trabajador->domicilioorigen = $request->get('domicilio_origen');
         $trabajador->distritoorigen = $request->get('distrito_origen');
         $trabajador->provinciaorigen = $request->get('provincia_origen');
