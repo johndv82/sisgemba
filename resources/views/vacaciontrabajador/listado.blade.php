@@ -412,18 +412,18 @@
         $('#dias_tomados').val('');
         $('#fecha_inicio').val('');
         $('#observaciones').val('');
-        if(totalDiasGanados >= 1){
+        //if(totalDiasGanados >= 1){
             $("#registroVacacion").modal('show');
-        }else{
+        /*}else{
             swal.fire(
                 'Error!',
                 'Aún no se puede registrar vacaciones por falta de dias ganados',
                 'error'
             );
-        }
+        }*/
     });
 
-    $("#periodo").on('change', function(e){
+    /*$("#periodo").on('change', function(e){
         let valorSelect = this.value;
         //Validar máximo valor de dias a tomar
         $vacaciones_ganadas = $("#tblVacacionesGanadas");
@@ -435,6 +435,6 @@
                 $("#dias_tomados").rules('add', {max: maximoDiasATomar});
             }
         });
-    });
+    });*/
 </script>
 @endsection
