@@ -6,6 +6,7 @@ use App\HijosTrabajador;
 use App\TipoDocumento;
 use App\Trabajador;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HijosTrabajadorController extends Controller
 {
@@ -44,6 +45,7 @@ class HijosTrabajadorController extends Controller
         $hijo->numerodocumento = $request->get('numero_documento_hijo');
         $hijo->fechanacimiento = $request->get('fecha_nacimiento_hijo');
         $hijo->ocupacion = $request->get('ocupacion_hijo');
+        $hijo->user_modified = Auth::user()->name;
 
         $hijo->save();
         return redirect('/hijostrabajador')->with('success', 'Hijo de Trabajador Actualizado!!');
@@ -67,6 +69,7 @@ class HijosTrabajadorController extends Controller
         $hijo->fechanacimiento = $request->get('fecha_nacimiento_hijo');
         $hijo->ocupacion = $request->get('ocupacion_hijo');
         $hijo->estado = true;
+        $hijo->user_created = Auth::user()->name;
 
         $hijo->save();
         return redirect('/hijostrabajador')->with('success', 'Hijo de Trabajador Registrado!!');

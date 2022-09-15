@@ -24,6 +24,8 @@ class CreateClienteTable extends Migration
             $table->integer("provincia");
             $table->integer("departamento");
             $table->boolean("estado");
+            $table->string('user_created', 25)->nullable();
+            $table->string('user_modified', 25)->nullable();
             $table->timestamps();
         });
     }

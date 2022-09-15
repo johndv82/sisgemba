@@ -6,6 +6,7 @@ use App\AsignacionTrabajador;
 use App\Trabajador;
 use App\Vacacion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VacacionController extends Controller
 {
@@ -68,6 +69,7 @@ class VacacionController extends Controller
         $vacacion->fecha_inicio = $request->get('fecha_inicio');
         $vacacion->observaciones = $request->get('observaciones');
         $vacacion->estado = true;
+        $vacacion->user_created = Auth::user()->name;
 
         $vacacion->save();
         return response()->json(['code' => 200]);

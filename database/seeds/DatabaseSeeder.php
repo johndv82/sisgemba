@@ -27,5 +27,7 @@ class DatabaseSeeder extends Seeder
         //$this->call(TipoTrabajadorAsigSeeder::class);
         //$this->call(VinculoLaboralSeeder::class);
         $this->call(EstadoTrabajadorSeeder::class);
+        $this->call(RolSeeder::class);
+        $this->call(UsuarioSeeder::class);
     }
 }

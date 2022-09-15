@@ -10,13 +10,15 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $table = 'usuario';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'rol_id',
     ];
 
     /**
@@ -34,6 +36,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'created_at' => 'date:d/m/Y',
     ];
+
+    public function rol()
+    {
+        return $this->belongsTo(Rol::class,'rol_id','id');
+    }
 }

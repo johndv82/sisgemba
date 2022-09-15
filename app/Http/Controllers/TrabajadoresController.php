@@ -14,6 +14,7 @@ use App\Trabajador;
 use App\Departamento;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 
@@ -161,6 +162,7 @@ class TrabajadoresController extends Controller
         $trabajador->datosestudio = $datos_estudio;
         $trabajador->estado = true;
         $trabajador->estadotrabajador_id = 1;
+        $trabajador->user_created = Auth::user()->name;
 
         $hijos_agregados = json_decode($request->get('hijos_agregados'), true);
         $hijosModel = [];
@@ -250,6 +252,8 @@ class TrabajadoresController extends Controller
         $trabajador->datosconyugue = $datos_conyugue;
         $trabajador->datosemergencia = $datos_emergencia;
         $trabajador->datosestudio = $datos_estudio;
+
+        $trabajador->user_modified = Auth::user()->name;
 
         $trabajador->save();
         return redirect('/trabajadores')->with('success', 'Trabajador Actualizado!!');

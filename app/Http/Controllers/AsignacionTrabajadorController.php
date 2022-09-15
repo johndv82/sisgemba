@@ -15,6 +15,7 @@ use App\Trabajador;
 use App\VinculoLaboral;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AsignacionTrabajadorController extends Controller
 {
@@ -136,6 +137,7 @@ class AsignacionTrabajadorController extends Controller
         $asignacion_trabajador->documentacion = $documentacion;
         $asignacion_trabajador->motivocese = $motivo_cese;
         $asignacion_trabajador->estado = true;
+        $asignacion_trabajador->user_created = Auth::user()->name;
         $asignacion_trabajador->save();
 
         return redirect('/asignaciontrabajador')->with('success', 'Trabajador Asignado correctamente!!');
@@ -186,6 +188,7 @@ class AsignacionTrabajadorController extends Controller
         $asignacion_trabajador_buscado->materialtrabajo = $material_trabajo;
         $asignacion_trabajador_buscado->documentacion = $documentacion;
         $asignacion_trabajador_buscado->motivocese = $motivo_cese;
+        $asignacion_trabajador_buscado->user_modified = Auth::user()->name;
         $asignacion_trabajador_buscado->save();
 
         return redirect('/asignaciontrabajador')->with('success', 'Asignación actualizada correctamente!!');

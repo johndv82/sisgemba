@@ -21,6 +21,9 @@ class CreateVacacionTable extends Migration
             $table->date("fecha_inicio");
             $table->text("observaciones");
             $table->boolean("estado");
+
+            $table->string('user_created', 25)->nullable();
+            $table->string('user_modified', 25)->nullable();
             $table->timestamps();
         });
     }

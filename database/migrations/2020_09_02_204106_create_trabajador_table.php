@@ -42,6 +42,9 @@ class CreateTrabajadorTable extends Migration
             $table->jsonb("datosestudio");
             $table->foreignId("estadotrabajador_id")->constrained('estado_trabajador');
             $table->boolean("estado");
+
+            $table->string('user_created', 25)->nullable();
+            $table->string('user_modified', 25)->nullable();
             $table->timestamps();
         });
     }

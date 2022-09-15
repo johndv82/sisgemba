@@ -6,6 +6,7 @@ use App\Cliente;
 use App\Departamento;
 use App\Distrito;
 use App\Provincia;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -19,12 +20,10 @@ class ClientesController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('viewContacto', function($row){
-                    $btn = '<a href="javascript:void(0)" class="vercontacto btn btn-info btn-sm">Ver</a>';
-                    return $btn;
+                    return '<a href="javascript:void(0)" class="vercontacto btn btn-info btn-sm">Ver</a>';
                 })
                 ->addColumn('action', function($row){
-                    $btn = '<a href='.url("clientes/edit/".$row->id).' class="btn btn-warning btn-sm">Editar</a>';
-                    return $btn;
+                    return '<a href='.url("clientes/edit/".$row->id).' class="btn btn-warning btn-sm">Editar</a>';
                 })
                 ->rawColumns(['viewContacto', 'action'])
                 ->make(true);
@@ -56,6 +55,7 @@ class ClientesController extends Controller
         $cliente->departamento = $request->get('departamento');
         $cliente->provincia = $request->get('provincia');
         $cliente->distrito = $request->get('distrito');
+        $cliente->user_modified = Auth::user()->name;
 
         $cliente->save();
         return redirect('/clientes')->with('success', 'Cliente Actualizado!!');
@@ -83,6 +83,7 @@ class ClientesController extends Controller
         $cliente->provincia = $request->input('provincia');
         $cliente->distrito = $request->input('distrito');
         $cliente->estado = true;
+        $cliente->user_created = Auth::user()->name;
 
         $cliente->save();
         return redirect()->route('listadoClientes')->with('success', 'Cliente Guardado!!');

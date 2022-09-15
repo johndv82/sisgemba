@@ -24,6 +24,9 @@ class CreateHijosTrabajadorTable extends Migration
             $table->date("fechanacimiento");
             $table->string("ocupacion", 250);
             $table->boolean("estado");
+
+            $table->string('user_created', 25)->nullable();
+            $table->string('user_modified', 25)->nullable();
             $table->timestamps();
         });
     }

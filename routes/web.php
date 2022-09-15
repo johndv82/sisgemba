@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
+})->middleware('auth');
 
 /** Rutas Cliente*/
 Route::get('/clientes', [\App\Http\Controllers\ClientesController::class, 'index'])->name('listadoClientes');
@@ -147,3 +147,20 @@ Route::post('/distrito/save', [\App\Http\Controllers\DistritoController::class, 
 Route::post('/distrito/delete/{id}', [\App\Http\Controllers\DistritoController::class, 'delete'])->name('deleteDistrito');
 Route::post('/distrito/listadoDepartamentos', [\App\Http\Controllers\DistritoController::class, 'listadoDepartamentos'])->name('listadoDepartamentosDistrito');
 Route::post('/distrito/listadoProvincias', [\App\Http\Controllers\DistritoController::class, 'listadoProvincias'])->name('listadoProvinciasDistrito');
+
+//Login
+Route::view('/login','usuario.login')->name('login')->middleware('guest');
+Route::post('/login',[\App\Http\Controllers\UsuarioController::class, 'login']);
+Route::post('/logout',[\App\Http\Controllers\UsuarioController::class, 'logout']);
+
+//Usuario
+Route::get('/usuario', [\App\Http\Controllers\UsuarioController::class, 'index'])->name('listadoUsuarios');
+Route::get('/usuario/edit/{id}', [\App\Http\Controllers\UsuarioController::class, 'edit'])->name('editUsuario');
+Route::post('/usuario/update', [\App\Http\Controllers\UsuarioController::class, 'update'])->name('updateUsuario');
+Route::get('/usuario/add', [\App\Http\Controllers\UsuarioController::class, 'add'])->name('addUsuario');
+Route::post('/usuario/save', [\App\Http\Controllers\UsuarioController::class, 'save'])->name('saveUsuario');
+Route::post('/usuario/delete/{id}', [\App\Http\Controllers\UsuarioController::class, 'delete'])->name('deleteUsuario');
+Route::post('/usuario/resetpwd', [\App\Http\Controllers\UsuarioController::class, 'resetpwd'])->name('resetpwdUsuario');
+
+Route::post('/usuario/cambiopwd', [\App\Http\Controllers\UsuarioController::class, 'cambiopwd'])->name('cambiopwdUsuario');
+Route::get('/usuario/pagecambiopwd', [\App\Http\Controllers\UsuarioController::class, 'pagecambiopwd'])->name('pagecambiopwdUsuario');
