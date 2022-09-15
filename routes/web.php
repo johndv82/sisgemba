@@ -164,4 +164,4 @@ Route::group(['middleware' => 'auth'], function () {
 //Login
 Route::view('/login','usuario.login')->name('login')->middleware('guest');
 Route::post('/login',[\App\Http\Controllers\UsuarioController::class, 'login']);
-Route::post('/logout',[\App\Http\Controllers\UsuarioController::class, 'logout']);
+Route::post('/logout',[\App\Http\Controllers\UsuarioController::class, 'logout'])->name('logout');

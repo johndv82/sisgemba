@@ -32,7 +32,7 @@ class UsuarioController extends Controller
             $request->session()->regenerate();
             return redirect('/');
         }else{
-            return redirect('/login')->with('incorrecto', 'Las Credenciales ingresadas son incorrectas');
+            return redirect('/login')->withInput()->withError('Las Credenciales ingresadas son incorrectas');
         }
     }
 

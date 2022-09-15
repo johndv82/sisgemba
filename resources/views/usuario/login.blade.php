@@ -49,7 +49,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="name">Usuario</label>
-                                    <input class="au-input au-input--full" type="text" name="name" id="name" placeholder="Nombre de Usuario" autocomplete="off">
+                                    <input class="au-input au-input--full" type="text" name="name" id="name" placeholder="Nombre de Usuario" value="{{old('name')}}" autocomplete="off">
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Contraseña</label>
@@ -64,8 +64,8 @@
                             </form>
                         </div>
                         <div>
-                            @if(Session('incorrecto'))
-                                <span class="badge badge-danger">{{Session('incorrecto')}}</span>
+                            @if(Session('error'))
+                                <span class="badge badge-danger">{{Session('error')}}</span>
                             @endif
                         </div>
                     </div>

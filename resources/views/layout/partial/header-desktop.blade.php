@@ -40,7 +40,7 @@
                                     </div>
                                 </div>
                                 <div class="account-dropdown__footer">
-                                    <form action="/logout" method="POST">
+                                    <form action="{{route('logout')}}" method="POST">
                                         @csrf
                                         <a href="#" onclick="this.closest('form').submit()">
                                             <i class="zmdi zmdi-power"></i>Cerrar Sesión</a>
