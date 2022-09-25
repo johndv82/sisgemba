@@ -17,9 +17,10 @@ class CreateUsuarioTable extends Migration
             $table->id();
             $table->string('nombres', 250);
             $table->string('apellidos', 250);
-            $table->string('email', 250)->unique();
+            $table->string('dni', 8)->unique();
+            $table->string('email', 250);
             $table->integer('rol_id');
-            $table->string('name', 25);
+            $table->string('name', 25)->unique();
             $table->string('password', 500);
             $table->timestamp('email_verified_at')->nullable();
             $table->boolean("estado");

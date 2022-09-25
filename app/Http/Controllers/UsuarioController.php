@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use App\User;
 use App\Rol;
@@ -72,17 +73,23 @@ class UsuarioController extends Controller
     }
 
     public function save(Request $request){
-        $usuario = new User();
-        $usuario->nombres = $request->input('nombres');
-        $usuario->apellidos = $request->input('apellidos');
-        $usuario->email = $request->input('email');
-        $usuario->rol_id = $request->input('rol');
-        $usuario->name = $request->input('nombre_usuario');
-        $usuario->password = Hash::make($request->input('password_aper'));
-        $usuario->estado = true;
+        $other_name_user = User::where('name', $request->input('nombre_usuario'))->get();
 
-        $usuario->save();
-        return response()->json(['code'=>200, 'message'=>'Registro Guardado con Éxito']);
+        if(count($other_name_user) == 0){
+            $usuario = new User();
+            $usuario->nombres = $request->input('nombres');
+            $usuario->apellidos = $request->input('apellidos');
+            $usuario->dni = $request->input('dni');
+            $usuario->email = $request->input('email');
+            $usuario->rol_id = $request->input('rol');
+            $usuario->name = $request->input('nombre_usuario');
+            $usuario->password = Hash::make($request->input('password_aper'));
+            $usuario->estado = true;
+            $usuario->save();
+            return response()->json(['code'=>200, 'message'=>'Registro Guardado con Éxito']);
+        }else{
+            return response()->json(['code'=>406, 'message'=>'El Nombre de Usuario ya está en uso']);
+        }
     }
 
     public function add(){
@@ -99,6 +106,7 @@ class UsuarioController extends Controller
         $usuario = User::find($request->input('idUsuario'));
         $usuario->nombres = $request->input('nombres');
         $usuario->apellidos = $request->input('apellidos');
+        $usuario->dni = $request->input('dni');
         $usuario->email = $request->input('email');
         $usuario->rol_id = $request->input('rol');
         $usuario->estado = true;

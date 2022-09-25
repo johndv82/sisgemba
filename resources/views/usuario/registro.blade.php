@@ -30,8 +30,8 @@
                     <div class="row form-group">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="email" class=" form-control-label">Email</label>
-                                <input type="text" id="email" name="email" class="form-control">
+                                <label for="dni" class=" form-control-label">DNI</label>
+                                <input type="text" id="dni" name="dni" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -43,6 +43,14 @@
                                         <option value="{{$item->id}}">{{$item->nombre}}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="email" class=" form-control-label">Email</label>
+                                <input type="text" id="email" name="email" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -94,6 +102,12 @@
                         required: true,
                         maxlength: 250
                     },
+                    dni:{
+                        required: true,
+                        maxlength: 8,
+                        minlength: 8,
+                        number: true
+                    },
                     email: {
                         required: true,
                         email: true,
@@ -120,6 +134,12 @@
                     apellidos: {
                         required: "Por favor, rellene este campo",
                         maxlength: "No escriba mas de 250 caracteres"
+                    },
+                    dni:{
+                        required: "Por favor, rellene este campo",
+                        maxlength: "El DNI solo es de 8 caracteres",
+                        minlength: "El DNI solo es de 8 caracteres",
+                        number: "Solo números"
                     },
                     email: {
                         required: "Por favor, rellene este campo",
@@ -156,6 +176,7 @@
                     data: {
                         nombres: $('#nombres').val(),
                         apellidos: $('#apellidos').val(),
+                        dni: $('#dni').val(),
                         email: $('#email').val(),
                         rol: $('#rol').val(),
                         nombre_usuario: $('#nombre_usuario').val(),
@@ -173,10 +194,10 @@
                             }).then(function(){
                                 window.location = '{{ route('listadoUsuarios') }}';
                             });
-                        }else if(response.code === 500){
-                            //SweetAlert Error 500
+                        }else if(response.code === 406){
+                            //SweetAlert Error 406
                             swal.fire(
-                                'Error!',
+                                'Error de duplicidad!',
                                 'Se ha producido un error: '+response.message,
                                 'error'
                             );

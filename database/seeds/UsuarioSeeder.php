@@ -16,6 +16,7 @@ class UsuarioSeeder extends Seeder
                 'id' => 1,
                 'nombres' => 'nombre admin',
                 'apellidos' => 'apellidos admin',
+                'dni'=>'88888888',
                 'email' => 'admin@admin.com',
                 'rol_id' => 1,
                 'name' => 'admin',

@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //$this->call(BancoSeeder::class);
+        $this->call(BancoSeeder::class);
         $this->call(CargoLaboralSeeder::class);
         $this->call(PaisSeeder::class);
         $this->call(DepartamentoSeeder::class);
@@ -19,12 +19,12 @@ class DatabaseSeeder extends Seeder
         $this->call(DistritoSeeder::class);
         $this->call(EstadoCivilSeeder::class);
         $this->call(NivelEstudiosSeeder::class);
-        //$this->call(PeriodicidadRemuneracionSeeder::class);
-        //$this->call(RegimenPensionSeeder::class);
-        //$this->call(RegimenSaludSeeder::class);
-        //$this->call(TipoContratoSeeder::class);
+        $this->call(PeriodicidadRemuneracionSeeder::class);
+        $this->call(RegimenPensionSeeder::class);
+        $this->call(RegimenSaludSeeder::class);
+        $this->call(TipoContratoSeeder::class);
         $this->call(TipoDocumentoSeeder::class);
-        //$this->call(TipoTrabajadorAsigSeeder::class);
+        $this->call(TipoTrabajadorAsigSeeder::class);
         $this->call(VinculoLaboralSeeder::class);
         $this->call(EstadoTrabajadorSeeder::class);
         $this->call(RolSeeder::class);
