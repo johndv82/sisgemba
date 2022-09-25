@@ -184,10 +184,10 @@
                             }).then(function(){
                                 window.location = '{{ route('listadoUsuarios') }}';
                             });
-                        }else if(response.code === 500){
-                            //SweetAlert Error 500
+                        }else if(response.code === 406){
+                            //SweetAlert Error 406
                             swal.fire(
-                                'Error!',
+                                'Error de duplicidad!',
                                 'Se ha producido un error: '+response.message,
                                 'error'
                             );

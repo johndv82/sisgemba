@@ -103,16 +103,21 @@ class UsuarioController extends Controller
     }
 
     public function update(Request $request){
-        $usuario = User::find($request->input('idUsuario'));
-        $usuario->nombres = $request->input('nombres');
-        $usuario->apellidos = $request->input('apellidos');
-        $usuario->dni = $request->input('dni');
-        $usuario->email = $request->input('email');
-        $usuario->rol_id = $request->input('rol');
-        $usuario->estado = true;
+        $other_name_user = User::where('name', $request->input('nombre_usuario'))->get();
 
-        $usuario->save();
-        return response()->json(['code'=>200, 'message'=>'Registro Actualizado con Éxito']);
+        if(count($other_name_user) == 0){
+            $usuario = User::find($request->input('idUsuario'));
+            $usuario->nombres = $request->input('nombres');
+            $usuario->apellidos = $request->input('apellidos');
+            $usuario->dni = $request->input('dni');
+            $usuario->email = $request->input('email');
+            $usuario->rol_id = $request->input('rol');
+            $usuario->estado = true;
+            $usuario->save();
+            return response()->json(['code'=>200, 'message'=>'Registro Actualizado con Éxito']);
+        }else{
+            return response()->json(['code'=>406, 'message'=>'El Nombre de Usuario ya está en uso']);
+        }
     }
 
     public function delete($id){
